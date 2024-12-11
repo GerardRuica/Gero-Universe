@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  margin: 200px 0 80px 0;
+  font-size: 30px;
+}
+
+.app-selector {
+  background-color: #2f2f2f;
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.app-card {
+}

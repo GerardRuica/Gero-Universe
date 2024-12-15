@@ -8,7 +8,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './sidebar-item.component.scss',
 })
 export class SidebarItemComponent {
-  @Input() svgPath: string = '';
   @Input() opened: boolean = false;
 
   public toggleOpened() {

@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { SidebarItemComponent } from '../sidebar-item/sidebar-item.component';
 
 @Component({
   selector: 'sidebar',
-  imports: [],
+  imports: [SidebarItemComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })

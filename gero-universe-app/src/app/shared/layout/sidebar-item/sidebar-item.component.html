@@ -1,0 +1,40 @@
+<div class="item-container">
+  <div
+    class="header-area"
+    [ngStyle]="{ 'background-color': opened ? '#222222' : '#171717' }"
+  >
+    <div class="logo-area">
+      <ng-content select="[svg-logo]"></ng-content>
+    </div>
+
+    <div class="title-area">
+      <ng-content select="[title]"></ng-content>
+    </div>
+
+    <div class="open-btn">
+      @if(opened) {
+      <button (click)="toggleOpened()">
+        <svg id="down-arrow" viewBox="0 0 24 24">
+          <path
+            d="M18.71,8.21a1,1,0,0,0-1.42,0l-4.58,4.58a1,1,0,0,1-1.42,0L6.71,8.21a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.41l4.59,4.59a3,3,0,0,0,4.24,0l4.59-4.59A1,1,0,0,0,18.71,8.21Z"
+          />
+        </svg>
+      </button>
+      } @else {
+      <button (click)="toggleOpened()">
+        <svg id="right-arrow" viewBox="0 0 24 24">
+          <path
+            d="M15.4,9.88,10.81,5.29a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42L14,11.29a1,1,0,0,1,0,1.42L9.4,17.29a1,1,0,0,0,1.41,1.42l4.59-4.59A3,3,0,0,0,15.4,9.88Z"
+          />
+        </svg>
+      </button>
+      }
+    </div>
+  </div>
+
+  @if(opened) {
+  <div class="list-area">
+    <ng-content select="[list]"> </ng-content>
+  </div>
+  }
+</div>

@@ -1,10 +1,19 @@
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --font-size: 16px;
+  --padding: 20px;
+  --text-color: #ececec;
+  --sidebar-width: 250px;
+}
+
 body,
 html {
   height: 100%;
   margin: 0;
   padding: 0;
   background-color: #212121;
-  color: #ececec;
+  color: var(--text-color);
   font-family: Rubik, ui-sans-serif, -apple-system, system-ui, Segoe UI,
     Helvetica, Apple Color Emoji, Arial, sans-serif, Segoe UI Emoji,
     Segoe UI Symbol;
@@ -12,4 +21,18 @@ html {
 
 p {
   margin: 0;
+}
+
+svg,
+object {
+  color: var(--text-color);
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }

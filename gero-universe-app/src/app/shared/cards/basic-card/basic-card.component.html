@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-image" *ngIf="imageSrc">
+    <img [src]="imageSrc" />
+  </div>
+  <div class="card-content">
+    <div class="card-title" *ngIf="title">
+      <h3>{{ title }}</h3>
+    </div>
+    <div class="card-description">
+      <p>{{ description }}</p>
+    </div>
+    <ng-content> </ng-content>
+  </div>
+</div>

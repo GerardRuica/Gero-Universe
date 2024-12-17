@@ -1,0 +1,21 @@
+<basic-card [imageSrc]="imageSrc" [title]="'AAA'">
+  <ng-content>
+    <div class="recipe-info-container">
+      <div class="tag-container">
+        <tag
+          [value]="principalIngredients[0]"
+          [backgroundColor]="'#F6D6A2'"
+        ></tag>
+        <tag
+          [value]="principalIngredients[1]"
+          [backgroundColor]="'#F6D6A2'"
+        ></tag>
+      </div>
+      <div class="extra-info-container">
+        <p *ngIf="time">⏳{{ time }}</p>
+        <p *ngIf="difficulty">🧑‍🍳{{ difficulty }}</p>
+        <p *ngIf="people">🍴{{ people }}</p>
+      </div>
+    </div>
+  </ng-content>
+</basic-card>

@@ -1,0 +1,17 @@
+.recipe-info-container {
+  margin-top: 25px;
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.extra-info-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}

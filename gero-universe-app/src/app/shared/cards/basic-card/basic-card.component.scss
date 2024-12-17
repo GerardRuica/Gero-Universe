@@ -30,18 +30,15 @@
 
 .card-content {
   margin: 20px;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .card-title {
-  overflow: hidden;
-  word-wrap: break-word;
   margin-bottom: 10px;
 
   h3 {
     margin: 0;
     padding: 0;
   }
-}
-
-.card-description {
 }

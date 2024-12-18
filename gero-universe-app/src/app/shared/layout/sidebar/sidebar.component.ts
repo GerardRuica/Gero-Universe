@@ -50,13 +50,19 @@ export class SidebarComponent {
    */
   @HostListener('document:click', ['$event'])
   private onClickOutside(event: MouseEvent) {
-    const sidebarElement = document.querySelector('.sidebar');
-    const toggleButton = document.querySelector('.toggle-button');
-    const clickedInsideSidebar = sidebarElement?.contains(event.target as Node);
-    const clickedOnToggleButton = toggleButton?.contains(event.target as Node);
+    if (this.isSmallScreen) {
+      const sidebarElement = document.querySelector('.sidebar');
+      const toggleButton = document.querySelector('.toggle-button');
+      const clickedInsideSidebar = sidebarElement?.contains(
+        event.target as Node
+      );
+      const clickedOnToggleButton = toggleButton?.contains(
+        event.target as Node
+      );
 
-    if (!clickedInsideSidebar && !clickedOnToggleButton && this.opened) {
-      this.opened = false;
+      if (!clickedInsideSidebar && !clickedOnToggleButton && this.opened) {
+        this.opened = false;
+      }
     }
   }
 

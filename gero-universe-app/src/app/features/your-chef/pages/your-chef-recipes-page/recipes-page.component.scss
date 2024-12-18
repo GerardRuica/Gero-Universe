@@ -11,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 150px;
+  margin: 150px 0 0 0;
   width: 100%;
 }
 
@@ -35,4 +35,20 @@
   width: 300px;
   height: 350px;
   border-radius: 20px;
+}
+
+@media (max-width: 1000px) {
+  .search-container {
+    width: 500px;
+  }
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .search-container {
+    width: 300px;
+  }
 }

@@ -16,7 +16,17 @@
       </svg>
     </button>
   </div>
+  <div
+    class="img-container"
+    [ngStyle]="{ 'background-color': logoBackgroundColor }"
+  >
+    <img [src]="logo" />
+  </div>
+  <div class="title">
+    <p>{{ title }}</p>
+  </div>
 </div>
+
 <div
   class="sidebar"
   [ngStyle]="{

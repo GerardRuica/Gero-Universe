@@ -41,7 +41,8 @@
     <div class="title">
       <p>{{ title }}</p>
     </div>
-    <div *ngIf="isSmallScreen" class="toggle-button">
+    @if (isSmallScreen) {
+    <div class="toggle-button">
       <button (click)="toggleSidebar()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -50,6 +51,7 @@
         </svg>
       </button>
     </div>
+    }
   </div>
   <hr class="separator" />
   <div class="content">

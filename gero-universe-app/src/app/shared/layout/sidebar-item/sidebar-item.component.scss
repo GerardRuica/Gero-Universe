@@ -28,10 +28,8 @@
     height: 20px;
   }
 
-  .open-btn.open {
-    svg {
-      transform: rotate(90deg);
-    }
+  .open-btn.open svg {
+    transform: rotate(90deg);
   }
 }
 

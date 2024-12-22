@@ -8,4 +8,4 @@
 
 Build image: `docker build . -t gero-universe-api:latest`
 
-Start conatiner: `docker run --rm -d -p 3000:3000/tcp gero-web-api:latest`
+Run container: `docker run -d --name gero-universe-api-container -p 3000:3000/tcp gero-universe-api:latest`

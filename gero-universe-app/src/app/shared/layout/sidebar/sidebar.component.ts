@@ -21,15 +21,15 @@ export class SidebarComponent {
   @Input() title: string = '';
 
   /** Width of the screen */
-  public screenWidth: number = window.innerWidth;
+  public screenWidth: number = 0;
   /** Boolean that indicates if sidebar is opened or closed */
   public opened: boolean = false;
   /** Boolean that indicates if screen is small or big */
   public isSmallScreen: boolean = false;
 
-  /** Constructor of the component */
-  constructor() {
-    this.checkScreenSize();
+  /** Initializes components elements */
+  public ngOnInit(): void {
+    this.onResize();
   }
 
   /**
@@ -38,9 +38,11 @@ export class SidebarComponent {
    * @param {Event} event Web event
    */
   @HostListener('window:resize', ['$event'])
-  private onResize(event: Event) {
-    this.screenWidth = window.innerWidth;
-    this.checkScreenSize();
+  private onResize(event?: Event) {
+    if (typeof window !== 'undefined') {
+      this.screenWidth = window.innerWidth;
+      this.checkScreenSize();
+    }
   }
 
   /**
@@ -52,10 +54,11 @@ export class SidebarComponent {
   private onClickOutside(event: MouseEvent) {
     if (this.isSmallScreen) {
       const sidebarElement = document.querySelector('.sidebar');
-      const toggleButton = document.querySelector('.toggle-button');
       const clickedInsideSidebar = sidebarElement?.contains(
         event.target as Node
       );
+
+      const toggleButton = document.querySelector('.toggle-button');
       const clickedOnToggleButton = toggleButton?.contains(
         event.target as Node
       );

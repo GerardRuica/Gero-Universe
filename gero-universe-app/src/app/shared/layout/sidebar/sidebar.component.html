@@ -26,14 +26,10 @@
     <p>{{ title }}</p>
   </div>
 </div>
-
 <div
   class="sidebar"
-  [ngStyle]="{
-    'background-color': sidebarColor,
-    display: !opened && isSmallScreen ? 'none' : 'block',
-    overflow: !opened && isSmallScreen ? 'hidden' : 'visible'
-  }"
+  [class.open]="opened"
+  [ngStyle]="{ 'background-color': sidebarColor }"
 >
   <div class="header">
     <div
@@ -45,7 +41,7 @@
     <div class="title">
       <p>{{ title }}</p>
     </div>
-    <div *ngIf="isSmallScreen" class="close-button">
+    <div *ngIf="isSmallScreen" class="toggle-button">
       <button (click)="toggleSidebar()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path

@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
-import connectGeroUniverseDB from "./config/database";
 import connectGeroUniverseYourChefDB from "./features/your-chef/config/database";
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
 import ingredientSchema from "./features/your-chef/models/ingredient-model";
 
 const app = express();
@@ -24,18 +23,13 @@ app.post("/ingredients", async (req: Request, res: Response) => {
     console.log("Request body: ", req.body);
     connectGeroUniverseYourChefDB();
 
-    const userSchema: mongoose.Schema = new mongoose.Schema({
+    const kittySchema = new mongoose.Schema({
       name: String,
-      age: Number,
     });
 
-    mongoose.model("test3", userSchema);
-    const user = new Model({
-      name: "Test",
-      age: 20,
-    });
-
-    user.save();
+    const Kitten = mongoose.model("Kitten", kittySchema);
+    const silence = new Kitten({ name: "Silence" });
+    await silence.save();
 
     res.status(201).json("Request done successfully");
   } catch (error) {

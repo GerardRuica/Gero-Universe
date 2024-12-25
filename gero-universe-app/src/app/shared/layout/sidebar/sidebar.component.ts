@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, Input } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Component that implements a simple sidebar

@@ -3,11 +3,14 @@ import connectGeroUniverseYourChefDB from "./features/your-chef/config/database"
 import mongoose from "mongoose";
 import ingredientSchema from "./features/your-chef/models/ingredient-model";
 
+const cors = require("cors");
 const app = express();
 const port = 3000;
 
 // Middleware for managing JSON requests
 app.use(express.json());
+// To accept CORS
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World from TypeScript API!");

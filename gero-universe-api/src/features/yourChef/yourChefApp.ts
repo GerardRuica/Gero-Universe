@@ -1,5 +1,5 @@
 import express from "express";
-import ingredientsRoutes from "./routes/ingredientsRoutes";
+import ingredientsRoutes from "./routes/ingredientRoutes";
 import connectGeroUniverseYourChefDB from "./config/database";
 
 // Declaration of the Your Chef app

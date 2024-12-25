@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Declaration of ingredient schema
 const IngredientSchema = new mongoose.Schema({
   name: {
     type: String,

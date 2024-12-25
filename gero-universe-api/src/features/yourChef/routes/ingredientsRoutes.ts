@@ -18,6 +18,10 @@ ingredientsRoutes.post(
     } catch (error: any) {
       if (error.name === "ValidationError") {
         res.status(400).send({ message: error.message });
+      } else if (error.name === "MongoServerError") {
+        res.status(400).send({
+          message: `Error: duplicate key on ${JSON.stringify(error.keyValue)}`,
+        });
       } else {
         res.status(500).send({ message: "Error saving ingredient" });
       }

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-// Define the Schema
-const ingredientSchema = new mongoose.Schema({
+// Definition of DB Schema of ingredients
+export const IngredientSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String },
   type: { type: String, required: true },
@@ -9,13 +9,11 @@ const ingredientSchema = new mongoose.Schema({
   photo: { type: String },
 });
 
-// Interface creation
-export interface IIngredient extends Document {
+// Interface creation of Ingredients
+export interface Ingredient {
   name: string;
   description?: string;
   type: string;
   unit?: string;
   photo?: string;
 }
-
-export default ingredientSchema;

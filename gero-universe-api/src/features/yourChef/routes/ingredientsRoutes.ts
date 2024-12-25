@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import express, { Request, Response, Router } from "express";
 import { Ingredient, IngredientSchema } from "../models/ingredient-model";
 
-const express = require("express");
-const ingredientsRoutes = express.Router();
+// Routes declaration
+const ingredientsRoutes: Router = express.Router();
 
 ingredientsRoutes.get("/", (req: Request, res: Response) => {
   console.log("A");

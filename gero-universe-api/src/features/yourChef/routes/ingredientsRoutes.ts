@@ -1,17 +1,31 @@
 import express, { Request, Response, Router } from "express";
-import { Ingredient, IngredientSchema } from "../models/ingredient-model";
+import Ingredient from "../models/ingredientModel";
 
 // Routes declaration
 const ingredientsRoutes: Router = express.Router();
 
-ingredientsRoutes.get("/", (req: Request, res: Response) => {
-  console.log("A");
-  res.send({ message: "Lista de ingredientes" });
-});
+// Function to get an ingredient
+ingredientsRoutes.get("/", async (req: Request, res: Response) => {});
 
-ingredientsRoutes.post("/", (req: Request, res: Response) => {});
+// Function to add a new ingredient to DB
+ingredientsRoutes.post(
+  "/addIngredient",
+  async (req: Request, res: Response) => {
+    try {
+      const newIngredient = new Ingredient(req.body);
+      await newIngredient.save();
+      res.send(200);
+    } catch (error: any) {
+      if (error.name === "ValidationError") {
+        res.status(400).send({ message: error.message });
+      } else {
+        res.status(500).send({ message: "Error saving ingredient" });
+      }
+    }
+  }
+);
 
-ingredientsRoutes.put("/:id", (req: Request, res: Response) => {});
+ingredientsRoutes.put("/:id", async (req: Request, res: Response) => {});
 
 ingredientsRoutes.delete("/:id", (req: Request, res: Response) => {});
 

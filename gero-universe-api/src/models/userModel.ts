@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import { geroUniverseDBConnection } from "../config/geroUniverseDatabase";
 
 // Declaration of the interface
 export interface IUser {
@@ -34,6 +35,7 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ["admin", "user"],
+    default: "user",
   },
   permissions: {
     type: [String],
@@ -54,7 +56,7 @@ const UserSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["ACTIVE", "PENDING", "ARCHIVED", "DELETED"],
-    default: "active",
+    default: "PENDING",
   },
 });
 
@@ -71,6 +73,6 @@ UserSchema.methods.comparePassword = async function (password: string) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model("User", UserSchema);
+const User = geroUniverseDBConnection.model("User", UserSchema);
 
 export default User;

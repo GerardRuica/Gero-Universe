@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import { geroUniverseYourChefDBConnection } from "../config/geroUniverseYourChefDatabase";
 
 // Declaration of ingredient schema
-const IngredientSchema = new mongoose.Schema({
+export const IngredientSchema: mongoose.Schema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Ingredient name is required"],
@@ -16,6 +17,9 @@ const IngredientSchema = new mongoose.Schema({
   photo: { type: String },
 });
 
-const Ingredient = mongoose.model("Ingredient", IngredientSchema);
+const Ingredient: mongoose.Model<any> = geroUniverseYourChefDBConnection.model(
+  "Ingredient",
+  IngredientSchema
+);
 
 export default Ingredient;

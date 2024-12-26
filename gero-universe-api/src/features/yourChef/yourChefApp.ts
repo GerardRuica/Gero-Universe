@@ -1,12 +1,8 @@
 import express from "express";
 import ingredientsRoutes from "./routes/ingredientRoutes";
-import connectGeroUniverseYourChefDB from "./config/geroUniverseYourChefDatabase";
 
 // Declaration of the Your Chef app
 const yourChefApp = express.Router();
-
-// Connection to DB
-connectGeroUniverseYourChefDB();
 
 // Declaration of the routes of the app
 yourChefApp.use("/ingredients", ingredientsRoutes);

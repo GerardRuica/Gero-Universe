@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 
-const connectGeroUniverseDB = async (): Promise<void> => {
+export const geroUniverseDBConnection = mongoose.createConnection(
+  "mongodb://admin:admin@localhost:27017/gero-universe?authSource=admin"
+);
+
+/*const connectGeroUniverseDB = async (): Promise<void> => {
   try {
-    const geroUniverseConnection: mongoose.Connection =
+    /*const geroUniverseConnection: mongoose.Connection =
       await mongoose.createConnection(
         "mongodb://admin:admin@localhost:27017/gero-universe?authSource=admin"
       );
@@ -18,4 +22,4 @@ const connectGeroUniverseDB = async (): Promise<void> => {
   }
 };
 
-export default connectGeroUniverseDB;
+export default connectGeroUniverseDB;*/

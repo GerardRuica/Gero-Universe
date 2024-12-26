@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import appRoutes from "./routes/appRoutes";
 import userRoutes from "./routes/userRoutes";
-import connectGeroUniverseDB from "./config/geroUniverseDatabase";
+//import connectGeroUniverseDB from "./config/geroUniverseDatabase";
 
 const cors = require("cors");
 const app = express();
@@ -18,7 +18,7 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 //Connection to DB
-connectGeroUniverseDB();
+//connectGeroUniverseDB();
 
 app.get(["/", "/api"], (req: Request, res: Response) => {
   res.send("API works");

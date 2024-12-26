@@ -45,7 +45,6 @@ userRoutes.post("/register", async (req: Request, res: Response) => {
       { _id: 1 }
     );
 
-    console.log("Exiting User: " + existingUser);
     if (existingUser) {
       res.status(400).json({ message: "Email already registered" });
       console.log("AA");
@@ -62,7 +61,10 @@ userRoutes.post("/register", async (req: Request, res: Response) => {
     await newUser.save();
 
     res.status(201).json({ message: "User registered successfully" });
-  } catch (error: any) {}
+  } catch (error: any) {
+    console.log(error);
+    res.status(500).send({ message: "Error creating user" });
+  }
 });
 
 export default userRoutes;

@@ -45,8 +45,10 @@ userRoutes.post("/register", async (req: Request, res: Response) => {
       { _id: 1 }
     );
 
+    console.log("Exiting User: " + existingUser);
     if (existingUser) {
       res.status(400).json({ message: "Email already registered" });
+      console.log("AA");
     }
 
     const hashedPassword: string = await bcrypt.hash(

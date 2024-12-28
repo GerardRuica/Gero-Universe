@@ -25,15 +25,15 @@ app.use("/", appRoutes);
 // Middleware to check if an user has session or not
 app.use((req: Request, res: Response, next) => {
   const token: string = req.cookies.access_token;
-  let data: JwtPayload | string;
   //req.session = { user: null };
 
   try {
-    data = jwt.verify(token, process.env.JWT_SECRET as string);
+    const data: JwtPayload | string = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string
+    );
     //req.session.user = data;
-  } catch (error: any) {
-    //req.session.user = null;
-  }
+  } catch (error: any) {}
 
   next();
 });

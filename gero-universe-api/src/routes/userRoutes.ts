@@ -77,10 +77,12 @@ userRoutes.post(
   }
 );
 
-// Function to logout an user
+// Function to close session of an user
 userRoutes.post(
   "/logout",
-  async (req: Request, res: Response): Promise<void> => {}
+  async (req: Request, res: Response): Promise<void> => {
+    res.clearCookie("access_token").json({ message: "Logout successful" });
+  }
 );
 
 // Function to access to protected routes

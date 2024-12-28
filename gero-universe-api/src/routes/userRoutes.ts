@@ -26,13 +26,12 @@ userRoutes.post("/login", async (req: Request, res: Response) => {
           process.env.JWT_SECRET as string,
           { expiresIn: "24h" }
         );
+
         res.json({ token });
       } else {
         res.status(400).json({ message: "Invalid email or password" });
       }
     }
-
-    res.status(200);
   } catch (error: any) {}
 });
 
@@ -47,7 +46,6 @@ userRoutes.post("/register", async (req: Request, res: Response) => {
 
     if (existingUser) {
       res.status(400).json({ message: "Email already registered" });
-      console.log("AA");
     }
 
     const hashedPassword: string = await bcrypt.hash(

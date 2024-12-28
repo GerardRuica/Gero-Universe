@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import appRoutes from "./routes/appRoutes";
-import userRoutes from "./routes/userRoutes";
-//import connectGeroUniverseDB from "./config/geroUniverseDatabase";
+import * as dotenv from "dotenv";
 
+dotenv.config();
 const cors = require("cors");
 const app = express();
 const port: number = 3000;

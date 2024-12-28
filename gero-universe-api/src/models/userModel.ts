@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
 import { geroUniverseDBConnection } from "../config/geroUniverseDatabase";
 
 // Declaration of the interface
@@ -59,19 +58,6 @@ const UserSchema = new mongoose.Schema({
     default: "PENDING",
   },
 });
-
-// Middleware to hash password before save password
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  const salt: string = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
-
-// Function to compare passwords
-UserSchema.methods.comparePassword = async function (password: string) {
-  return bcrypt.compare(password, this.password);
-};
 
 const User = geroUniverseDBConnection.model("User", UserSchema);
 

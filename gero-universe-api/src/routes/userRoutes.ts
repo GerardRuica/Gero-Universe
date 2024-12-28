@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import User, { IUser } from "../models/userModel";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 // Declaration of the user routes
 const userRoutes = express.Router();
@@ -14,29 +14,35 @@ userRoutes.post(
       const { email, password }: IUser = req.body;
 
       const user = await User.findOne({ email });
-      if (!user) {
-        res.status(400).json({ message: "Invalid email or password" });
-      } else {
-        const validPassword: boolean = await bcrypt.compare(
-          password,
-          user.password
-        );
+      if (!user) throw new Error("Invalid email or password");
 
-        if (validPassword) {
-          const token: string = jwt.sign(
-            { userId: user._id },
-            process.env.JWT_SECRET as string,
-            { expiresIn: "24h" }
-          );
+      const validPassword: boolean = await bcrypt.compare(
+        password,
+        user.password
+      );
 
-          res.json({ token });
-        } else {
-          res.status(400).json({ message: "Invalid email or password" });
-        }
-      }
+      if (!validPassword) throw new Error("Invalid email or password");
+
+      const token: string = jwt.sign(
+        { userId: user._id },
+        process.env.JWT_SECRET as string,
+        { expiresIn: "24h" }
+      );
+
+      res
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: false, //TODO: Hacerla true en produccion, e sa decirl que solo se pueda usar https
+          maxAge: 24000 * 60 * 60, //TODO: cambiar la validez de la cookie a unas pocas horas,
+          sameSite: true, // Para que la cookie solo se envie a nuestro dominio
+        })
+        .send({
+          userId: user._id,
+          username: user.username,
+          token: token,
+        });
     } catch (error: any) {
-      console.log(error);
-      res.status(500).send({ message: "Error login user" });
+      res.status(401).send({ message: `Error login user: ${error.message}` });
     }
   }
 );
@@ -51,23 +57,46 @@ userRoutes.post(
         email: introducedUser.email,
       });
 
-      if (existingUser) {
-        res.status(400).json({ message: "Email already registered" });
-      } else {
-        const hashedPassword: string = await bcrypt.hash(
-          introducedUser.password,
-          10
-        );
+      if (existingUser) throw new Error("Email already registered");
 
-        introducedUser.password = hashedPassword;
-        const newUser = new User(introducedUser);
-        await newUser.save();
+      const hashedPassword: string = await bcrypt.hash(
+        introducedUser.password,
+        10
+      );
 
-        res.status(201).json({ message: "User registered successfully" });
-      }
+      introducedUser.password = hashedPassword;
+      const newUser = new User(introducedUser);
+      await newUser.save();
+
+      res.status(201).json({ message: "User registered successfully" });
     } catch (error: any) {
-      console.log(error);
-      res.status(500).send({ message: "Error creating user" });
+      res
+        .status(400)
+        .send({ message: `Error creating user: ${error.message}` });
+    }
+  }
+);
+
+// Function to logout an user
+userRoutes.post(
+  "/logout",
+  async (req: Request, res: Response): Promise<void> => {}
+);
+
+// Function to access to protected routes
+userRoutes.get(
+  "/protected",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const token: string = req.cookies.access_token;
+      if (!token) throw new Error("Access not authorized");
+
+      const data: JwtPayload | string = jwt.verify(
+        token,
+        process.env.JWT_SECRET as string
+      );
+    } catch (error: any) {
+      res.status(401).send({ message: `Error when access: ${error.message}` });
     }
   }
 );

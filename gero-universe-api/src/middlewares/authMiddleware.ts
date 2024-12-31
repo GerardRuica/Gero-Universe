@@ -8,7 +8,9 @@ const isAuthenticated = (
   next: NextFunction
 ): void => {
   try {
-    const excludedRoutes = [
+    req.session = { user: null };
+
+    const excludedRoutes: string[] = [
       "/user/login",
       "/user/register",
       "/user/logout",
@@ -21,7 +23,6 @@ const isAuthenticated = (
     }
 
     const token: any = req.cookies.access_token;
-
     const data: JwtPayload | string = jwt.verify(
       token,
       process.env.JWT_SECRET as string
@@ -31,7 +32,13 @@ const isAuthenticated = (
 
     next();
   } catch (error: any) {
-    res.status(401).send({ message: `Error: ${error.message}` });
+    if (error.name == "JsonWebTokenError") {
+      res
+        .status(401)
+        .send({ message: `Authentication error: user not logged` });
+    } else {
+      res.status(401).send({ message: `Auth Error: ${error.message}` });
+    }
   }
 };
 

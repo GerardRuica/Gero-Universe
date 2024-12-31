@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import appRoutes from "./routes/appRoutes";
 import cookieParser from "cookie-parser";
 import cors from "cors";

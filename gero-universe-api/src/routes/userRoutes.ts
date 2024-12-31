@@ -34,7 +34,7 @@ userRoutes.post(
           httpOnly: true,
           secure: false, //TODO: Hacerla true en produccion, e sa decir que solo se pueda usar https
           maxAge: 24000 * 60 * 60, //TODO: cambiar la validez de la cookie a unas pocas horas,
-          sameSite: true, // Para que la cookie solo se envie a nuestro dominio
+          sameSite: true,
         })
         .send({
           userId: user._id,

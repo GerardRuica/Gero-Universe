@@ -1,10 +1,10 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, Router } from "express";
 import User, { IUser } from "../models/userModel";
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 // Declaration of the user routes
-const userRoutes = express.Router();
+const userRoutes: Router = express.Router();
 
 // Function to authenticate an user
 userRoutes.post(
@@ -12,11 +12,11 @@ userRoutes.post(
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { email, password }: IUser = req.body;
+      const user: IUser | null = await User.findOne({ email });
 
-      const user = await User.findOne({ email });
       if (!user) throw new Error("Invalid email or password");
 
-      const validPassword: boolean = await bcrypt.compare(
+      const validPassword: boolean | unknown = await bcrypt.compare(
         password,
         user.password
       );

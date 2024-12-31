@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import * as dotenv from "dotenv";
+import isAuthenticated from "./middlewares/authMiddleware";
 
 dotenv.config();
 
@@ -23,20 +24,7 @@ app.use(cors());
 app.use("/", appRoutes);
 
 // Middleware to check if an user has session or not
-app.use((req: Request, res: Response, next) => {
-  const token: string = req.cookies.access_token;
-  //req.session = { user: null };
-
-  try {
-    const data: JwtPayload | string = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string
-    );
-    //req.session.user = data;
-  } catch (error: any) {}
-
-  next();
-});
+app.use(isAuthenticated);
 
 // Port assignation
 app.listen(PORT, () => {

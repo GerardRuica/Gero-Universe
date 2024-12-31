@@ -1,25 +1,33 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
-export const verifyToken = (
+// Middleware toi verify if user is authenticated or not
+const isAuthenticated = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): void => {
   try {
-    const token = req.header("Authorization")?.split(" ")[1];
-    if (!token) {
-      return res
-        .status(401)
-        .json({ message: "Access Denied: No token provided" });
+    const excludedRoutes = ["/user/login", "/user/register", "/public"];
+
+    // We exclude this routes
+    if (excludedRoutes.includes(req.path)) {
+      return next();
     }
 
-    const secret = process.env.JWT_SECRET as string;
-    const decoded = jwt.verify(token, secret);
+    const token: any = req.cookies.access_token;
 
-    //req.user = decoded;
+    const data: JwtPayload | string = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string
+    );
+
+    req.session.user = data;
+
     next();
-  } catch (err) {
-    res.status(401).json({ message: "Invalid Token" });
+  } catch (error: any) {
+    res.status(401).send({ message: `Error: ${error.message}` });
   }
 };
+
+export default isAuthenticated;

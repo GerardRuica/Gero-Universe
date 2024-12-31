@@ -32,7 +32,7 @@ userRoutes.post(
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          secure: false, //TODO: Hacerla true en produccion, e sa decirl que solo se pueda usar https
+          secure: false, //TODO: Hacerla true en produccion, e sa decir que solo se pueda usar https
           maxAge: 24000 * 60 * 60, //TODO: cambiar la validez de la cookie a unas pocas horas,
           sameSite: true, // Para que la cookie solo se envie a nuestro dominio
         })

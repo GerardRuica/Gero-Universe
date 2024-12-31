@@ -81,7 +81,11 @@ userRoutes.post(
 userRoutes.post(
   "/logout",
   async (req: Request, res: Response): Promise<void> => {
-    res.clearCookie("access_token").json({ message: "Logout successful" });
+    try {
+      res.clearCookie("access_token").json({ message: "Logout successful" });
+    } catch (error: any) {
+      res.status(400).send({ message: `Error when logout: ${error.message}` });
+    }
   }
 );
 

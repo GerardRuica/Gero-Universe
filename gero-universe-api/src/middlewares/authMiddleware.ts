@@ -8,7 +8,12 @@ const isAuthenticated = (
   next: NextFunction
 ): void => {
   try {
-    const excludedRoutes = ["/user/login", "/user/register", "/public"];
+    const excludedRoutes = [
+      "/user/login",
+      "/user/register",
+      "/user/logout",
+      "/public",
+    ];
 
     // We exclude this routes
     if (excludedRoutes.includes(req.path)) {

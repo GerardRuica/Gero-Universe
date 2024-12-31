@@ -1,8 +1,7 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import appRoutes from "./routes/appRoutes";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import isAuthenticated from "./middlewares/authMiddleware";
 
@@ -20,11 +19,11 @@ app.use(cookieParser());
 // To accept CORS
 app.use(cors());
 
-// App routes
-app.use("/", appRoutes);
-
 // Middleware to check if an user has session or not
 app.use(isAuthenticated);
+
+// App routes
+app.use("/", appRoutes);
 
 // Port assignation
 app.listen(PORT, () => {

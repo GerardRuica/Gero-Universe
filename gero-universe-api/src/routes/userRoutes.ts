@@ -16,7 +16,7 @@ userRoutes.post(
 
       if (!user) throw new Error("Invalid email or password");
 
-      const validPassword: boolean | unknown = await bcrypt.compare(
+      const validPassword: boolean = await bcrypt.compare(
         password,
         user.password
       );
@@ -85,24 +85,6 @@ userRoutes.post(
       res.clearCookie("access_token").json({ message: "Logout successful" });
     } catch (error: any) {
       res.status(400).send({ message: `Error when logout: ${error.message}` });
-    }
-  }
-);
-
-// Function to access to protected routes
-userRoutes.get(
-  "/protected",
-  async (req: Request, res: Response): Promise<void> => {
-    try {
-      const token: string = req.cookies.access_token;
-      if (!token) throw new Error("Access not authorized");
-
-      const data: JwtPayload | string = jwt.verify(
-        token,
-        process.env.JWT_SECRET as string
-      );
-    } catch (error: any) {
-      res.status(401).send({ message: `Error when access: ${error.message}` });
     }
   }
 );

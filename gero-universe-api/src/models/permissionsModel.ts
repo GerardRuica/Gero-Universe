@@ -19,6 +19,11 @@ const PermissionSchema: mongoose.Schema = new mongoose.Schema(
     },
     description: {
       type: String,
+      required: [true, "Description is required"],
+    },
+    module: {
+      type: String,
+      required: [true, "Module (to what feature belongs) is required"],
     },
   },
   { timestamps: true }

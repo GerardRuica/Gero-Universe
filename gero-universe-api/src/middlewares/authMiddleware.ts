@@ -1,14 +1,21 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { IUserSession } from "../models/userModel";
 
-// Middleware toi verify if user is authenticated or not
+/**
+ * Middleware to verify if user is authenticated or not
+ *
+ * @param {Request} req Http request
+ * @param {Response} res Http response
+ * @param {NextFunction} next Next function
+ */
 const isAuthenticated = (
   req: Request,
   res: Response,
   next: NextFunction
 ): void => {
   try {
-    req.session = { user: null };
+    req.session = {};
 
     const excludedRoutes: string[] = [
       "/user/login",
@@ -28,7 +35,7 @@ const isAuthenticated = (
       process.env.JWT_SECRET as string
     );
 
-    req.session.user = data;
+    req.session.user = data as IUserSession;
 
     next();
   } catch (error: any) {
@@ -37,7 +44,6 @@ const isAuthenticated = (
         .status(401)
         .send({ message: `Authentication error: user not logged` });
     } else {
-      res.status(401).send({ message: `Auth Error: ${error.message}` });
     }
   }
 };

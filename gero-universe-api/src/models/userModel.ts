@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { geroUniverseDBConnection } from "../config/geroUniverseDatabase";
+import { IPermission } from "./permissionsModel";
 
 // Declaration of the interface
 export interface IUser {
@@ -7,7 +8,7 @@ export interface IUser {
   username: string;
   password: string;
   role?: "admin" | "user" | undefined;
-  permissions?: string[];
+  permissions?: Types.ObjectId[] | IPermission[];
   firstName?: string;
   lastName?: string;
   profilePicture?: string;
@@ -15,7 +16,14 @@ export interface IUser {
   status?: "ACTIVE" | "PENDING" | "ARCHIVED" | "DELETED";
   createdAt?: Date;
   updatedAt?: Date;
-  _id: String;
+  _id: Types.ObjectId[];
+}
+
+// Declaration of the user session
+export interface IUserSession {
+  userId: string;
+  username: string;
+  token: string;
 }
 
 // Declaration of user schema
@@ -41,7 +49,12 @@ const UserSchema: mongoose.Schema = new mongoose.Schema(
       default: "user",
     },
     permissions: {
-      type: [String],
+      type: [
+        {
+          type: Types.ObjectId,
+          ref: "Permission",
+        },
+      ],
       default: [],
     },
     firstName: {

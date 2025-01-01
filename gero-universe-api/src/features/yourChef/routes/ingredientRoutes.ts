@@ -18,7 +18,7 @@ ingredientsRoutes.post(
     } catch (error: any) {
       if (error.name === "ValidationError") {
         res.status(400).send({ message: error.message });
-      } else if (error.name === "MongoServerError") {
+      } else if (error.name === "MongoServerError" && error.code === 11000) {
         res.status(400).send({
           message: `Error: duplicate key on ${JSON.stringify(error.keyValue)}`,
         });

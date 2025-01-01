@@ -12,7 +12,6 @@ permissionRoutes.post(
   checkPermission([
     PERMISSIONS.PERMISSIONS.permissions_w,
     PERMISSIONS.PERMISSIONS.permissions_rw,
-    "a",
   ]),
   async (req: Request, res: Response): Promise<void> => {
     try {

@@ -8,6 +8,7 @@ import { ERRORS } from "../constants/errors";
  * Checks user permissions
  *
  * @param permissionsNames Permissions names
+ * @throws 403 If the user don't have permissions
  */
 const checkPermission =
   (permissionsNames: string[]) =>
@@ -37,11 +38,7 @@ const checkPermission =
 
       next();
     } catch (error: any) {
-      if (error.code === "PERMISSION_DENIED") {
-        res.status(error.status).send({ message: error.message });
-      } else {
-        res.status(500).send({ message: `Error when obtain permissions` });
-      }
+      handleError(error, res);
     }
   };
 
@@ -50,6 +47,7 @@ const checkPermission =
  *
  * @param {IUserSession} userSession User session
  * @returns User permissions
+ * @throws 404 If user not exists
  */
 async function getUserPermissions(
   userSession: IUserSession
@@ -60,9 +58,13 @@ async function getUserPermissions(
       .populate("permissions", "name")) as Partial<IUser>;
 
     if (!user) {
-      throw createError(404, "User not found", {
-        code: "USER_NOT_FOUND",
-      });
+      throw createError(
+        ERRORS.USER.NOT_FOUND.status,
+        ERRORS.USER.NOT_FOUND.message,
+        {
+          code: ERRORS.USER.NOT_FOUND.code,
+        }
+      );
     }
 
     const userPermissions: String[] = (user.permissions as IPermission[]).map(
@@ -80,6 +82,7 @@ async function getUserPermissions(
  *
  * @param {string[]} names Permissions names
  * @returns Name of the permissions
+ * @throws 404 if one of the introduced permissions names are not in DB
  */
 async function getPermissionsByNames(names: string[]): Promise<String[]> {
   try {
@@ -91,12 +94,39 @@ async function getPermissionsByNames(names: string[]): Promise<String[]> {
       (perm: Partial<IPermission>) => perm.name
     );
 
-    if (names.length !== foundPermissions.length)
-      throw Error("One of the indicates permissions don't exist");
+    if (names.length !== foundPermissions.length) {
+      throw createError(
+        ERRORS.PERMISSIONS.NOT_FOUND.status,
+        ERRORS.PERMISSIONS.NOT_FOUND.message,
+        {
+          code: ERRORS.PERMISSIONS.NOT_FOUND.code,
+        }
+      );
+    }
 
     return foundPermissions as String[];
   } catch (error: any) {
-    throw new Error(error.message);
+    throw error;
+  }
+}
+
+/**
+ * Function to handle errors and send appropriate response.
+ *
+ * @param {Error} error The error object thrown
+ * @param {Response} res The Express response object
+ */
+function handleError(error: any, res: Response): void {
+  const errorCodes: string[] = [
+    ERRORS.PERMISSIONS.DENIED.code,
+    ERRORS.PERMISSIONS.NOT_FOUND.code,
+    ERRORS.USER.NOT_FOUND.code,
+  ];
+
+  if (errorCodes.includes(error.code)) {
+    res.status(error.status).send({ message: error.message });
+  } else {
+    res.status(500).send({ message: "Error when obtaining permissions" });
   }
 }
 

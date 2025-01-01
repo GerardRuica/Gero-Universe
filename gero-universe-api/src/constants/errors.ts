@@ -12,5 +12,10 @@ export const ERRORS = {
       code: "PERMISSION_DENIED",
       message: "Insufficient permissions to access this resource",
     },
+    NOT_FOUND: {
+      status: 404,
+      code: "PERMISSION_NOT_FOUND",
+      message: "Permission not found",
+    },
   },
 };

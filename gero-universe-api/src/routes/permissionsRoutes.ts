@@ -1,6 +1,7 @@
 import express, { Request, Response, Router } from "express";
 import Permission, { IPermission } from "../models/permissionsModel";
 import checkPermission from "../middlewares/checkPermissionMiddleware";
+import { PERMISSIONS } from "../constants/permissions";
 
 // Declaration of the user routes
 const permissionRoutes: Router = express.Router();
@@ -8,7 +9,10 @@ const permissionRoutes: Router = express.Router();
 // Function to create a permission
 permissionRoutes.post(
   "/createPermission",
-  checkPermission(["permissions_w", "permissions_rw"]),
+  checkPermission([
+    PERMISSIONS.PERMISSIONS.permissions_w,
+    PERMISSIONS.PERMISSIONS.permissions_rw,
+  ]),
   async (req: Request, res: Response): Promise<void> => {
     try {
       const introducedPermission: IPermission = req.body;

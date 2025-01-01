@@ -2,9 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import User, { IUser, IUserSession } from "../models/userModel";
 import Permission, { IPermission } from "../models/permissionsModel";
 import createError from "http-errors";
-
-const NOT_PERMISSIONS_MESSAGE: string =
-  "You do not have the time to perform this action";
+import { ERRORS } from "../constants/errors";
 
 /**
  * Checks user permissions
@@ -27,10 +25,15 @@ const checkPermission =
         (permission: String) => userPermissions.includes(permission)
       );
 
-      if (!hasPermissions)
-        throw createError(403, "Insufficient permissions", {
-          code: "PERMISSION_DENIED",
-        });
+      if (!hasPermissions) {
+        throw createError(
+          ERRORS.PERMISSIONS.DENIED.status,
+          ERRORS.PERMISSIONS.DENIED.message,
+          {
+            code: ERRORS.PERMISSIONS.DENIED.code,
+          }
+        );
+      }
 
       next();
     } catch (error: any) {
@@ -56,7 +59,11 @@ async function getUserPermissions(
       .select("permissions")
       .populate("permissions", "name")) as Partial<IUser>;
 
-    if (!user) throw new Error("User not found");
+    if (!user) {
+      throw createError(404, "User not found", {
+        code: "USER_NOT_FOUND",
+      });
+    }
 
     const userPermissions: String[] = (user.permissions as IPermission[]).map(
       (perm: IPermission) => perm.name
@@ -64,7 +71,7 @@ async function getUserPermissions(
 
     return userPermissions;
   } catch (error: any) {
-    throw new Error(error.message);
+    throw error;
   }
 }
 

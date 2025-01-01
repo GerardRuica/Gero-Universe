@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import yourChefApp from "../features/yourChef/yourChefApp";
 import userRoutes from "./userRoutes";
 import permissionRoutes from "./permissionsRoutes";

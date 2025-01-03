@@ -18,4 +18,11 @@ export const ERRORS = {
       message: "Permission not found",
     },
   },
+  MONGO: {
+    DUPLICATE_KEY: {
+      status: 400,
+      code: "11000",
+      message: "Duplicate key on:",
+    },
+  },
 };

@@ -4,14 +4,16 @@ import { YourChefMainPageComponent } from './features/your-chef/pages/your-chef-
 import { RecipesPageComponent } from './features/your-chef/pages/your-chef-recipes-page/recipes-page.component';
 import { LoginPageComponent } from './features/authentication/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './features/authentication/pages/register-page/register-page.component';
+import { AuthGuard } from './guards/is-logged-in-guard/is-logged-in.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivate: [AuthGuard],
   },
   {
-    path: 'authentication',
+    path: 'user',
     children: [
       {
         path: 'login',

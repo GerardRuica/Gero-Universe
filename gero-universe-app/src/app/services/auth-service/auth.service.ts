@@ -25,10 +25,14 @@ export class AuthService {
    * @param {Router} router Router to redirect
    */
   constructor(private http: HttpClient, private router: Router) {
-    const storedUser: string | null = localStorage.getItem('currentUser');
-    this.currentUserSubject = new BehaviorSubject<User>(
-      storedUser ? JSON.parse(storedUser) : null
-    );
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const storedUser: string | null = localStorage.getItem('currentUser');
+      this.currentUserSubject = new BehaviorSubject<User>(
+        storedUser ? JSON.parse(storedUser) : null
+      );
+    } else {
+      this.currentUserSubject = new BehaviorSubject<User>({});
+    }
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -37,7 +41,7 @@ export class AuthService {
    *
    * @param {string} email User email
    * @param {string} password User password
-   * @returns USer data
+   * @returns User data from backend
    */
   public login(email: string, password: string): Observable<any> {
     return this.http
@@ -71,7 +75,7 @@ export class AuthService {
   }
 
   /**
-   * Function yo verifies if user is authenticated or not
+   * Function to verifies if user is authenticated or not
    *
    * @returns Boolean indicating if user is authenticated
    */

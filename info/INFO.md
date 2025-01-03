@@ -43,3 +43,15 @@
 
 **Solicitudes http:** para poder realizar solicitudes http, en el app.config.ts, hay que añadir un nuevo porvider, el `provideHttpClient()`. Además, en el componente donde queramos hacer las solicitud http, en el
 contructor, habra que añadir el HttpClient `constructor(private http: HttpClient) {}`, para poder así realizar un petición http.
+
+</br>
+
+**Guards**: nos sirven para proteger las rutas.
+
+- Tipos:
+  - CanActivate
+  - CanActivateChild
+  - CanDeactivate
+  - CanMatch
+- Comando para generar la guard: `ng generate guard rutaDondeQueramosLaguard --interactive`
+  - Ejemplo: `ng generate guard auth/guards/isLoggedIn --interactive`

@@ -1,17 +1,27 @@
 <div class="login-container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="login-title"><h2>Login</h2></div>
-    <form-input
-      [labelText]="'Email'"
-      [placeholderText]="'Introduce your email'"
-      [type]="'email'"
-      formControlName="email"
-    ></form-input>
-    <form-input
-      [labelText]="'Password'"
-      [placeholderText]="'Introduce your password'"
-      formControlName="password"
-    ></form-input>
-    <button type="submit">Iniciar Sesión</button>
+    <div class="field">
+      <form-input
+        [labelText]="'Email'"
+        [placeholderText]="'Introduce your email'"
+        [type]="'email'"
+        formControlName="email"
+      ></form-input>
+    </div>
+    <div class="field">
+      <form-input
+        [labelText]="'Password'"
+        [placeholderText]="'Introduce your password'"
+        formControlName="password"
+      ></form-input>
+    </div>
+    <div class="button-field">
+      <basic-button
+        [text]="'Login'"
+        [type]="'submit'"
+        [color]="'#633974'"
+      ></basic-button>
+    </div>
   </form>
 </div>

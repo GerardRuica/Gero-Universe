@@ -9,13 +9,19 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../../services/auth-service/auth.service';
 import { UserLogin } from '../../../../types/userTypes';
+import { BasicButtonComponent } from '../../../../shared/basic/buttons/basic-button/basic-button.component';
 
 /**
  * Page to login an user
  */
 @Component({
   selector: 'login-page',
-  imports: [FormInputComponent, ReactiveFormsModule, FormsModule],
+  imports: [
+    FormInputComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    BasicButtonComponent,
+  ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
 })
@@ -39,6 +45,9 @@ export class LoginPageComponent {
     });
   }
 
+  /**
+   * Function thad do actions of teh submit button
+   */
   public onSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password }: UserLogin = this.loginForm.value;

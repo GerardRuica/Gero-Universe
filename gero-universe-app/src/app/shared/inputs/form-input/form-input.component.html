@@ -6,5 +6,7 @@
     name="inputField"
     [placeholder]="placeholderText"
     required
+    (input)="onInputChange($event)"
+    (blur)="onTouched()"
   />
 </div>

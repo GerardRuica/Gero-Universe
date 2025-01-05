@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth-service/auth.service';
+import { error } from 'console';
 
 @Injectable({
   providedIn: 'root',
@@ -27,15 +28,20 @@ export class AuthGuard implements CanActivate {
    * @param state
    * @returns Boolean indicating if user can access to content
    */
-  public canActivate(
+  public async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isAuthenticated()) {
-      return true;
-    } else {
+  ): Promise<boolean> {
+    try {
+      if (await this.authService.isAuthenticated()) {
+        return true;
+      } else {
+        this.router.navigate(['/user/login']);
+        return false;
+      }
+    } catch (error) {
       this.router.navigate(['/user/login']);
-      return false;
+      throw error;
     }
   }
 }

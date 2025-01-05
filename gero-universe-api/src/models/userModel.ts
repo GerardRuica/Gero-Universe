@@ -4,6 +4,7 @@ import { IPermission } from "./permissionsModel";
 
 // Declaration of the interface
 export interface IUser {
+  _id: Types.ObjectId[];
   email: string;
   username: string;
   password: string;
@@ -16,7 +17,7 @@ export interface IUser {
   status?: "ACTIVE" | "PENDING" | "ARCHIVED" | "DELETED";
   createdAt?: Date;
   updatedAt?: Date;
-  _id: Types.ObjectId[];
+  token?: string;
 }
 
 // Declaration of the user session

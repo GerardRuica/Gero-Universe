@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, firstValueFrom, Observable, tap } from 'rxjs';
-import { User } from '../../types/userTypes';
+import { User, UserCheckTokenResponse } from '../../types/userTypes';
 
 /**
  * Injectable to authenticate user and get user data
@@ -45,7 +45,7 @@ export class AuthService {
    */
   public async login(email: string, password: string): Promise<User | null> {
     try {
-      const response = await firstValueFrom(
+      const response: User = await firstValueFrom(
         this.http.post<User>(`${this.apiUrl}/user/login`, { email, password })
       );
 
@@ -56,8 +56,29 @@ export class AuthService {
 
       return response;
     } catch (error) {
-      console.error('Login failed:', error);
-      return null;
+      throw error;
+    }
+  }
+
+  /**
+   * Function to check if user token is valid or not
+   *
+   * @returns Boolean indicating if token is valid or not
+   */
+  public async checkToken(): Promise<boolean> {
+    try {
+      const response: UserCheckTokenResponse = await firstValueFrom(
+        this.http.post<UserCheckTokenResponse>(
+          `${this.apiUrl}/user/checkToken`,
+          {
+            token: this.getCurrentUserValue().token,
+          }
+        )
+      );
+
+      return response.valid;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -75,16 +96,26 @@ export class AuthService {
    *
    * @returns User data
    */
-  public get currentUserValue(): any {
+  public getCurrentUserValue(): User {
     return this.currentUserSubject.value;
   }
 
   /**
    * Function to verifies if user is authenticated or not
    *
-   * @returns Boolean indicating if user is authenticated
+   * @returns Boolean indicating if user is authenticated and has a valid token
    */
-  public isAuthenticated(): boolean {
-    return !!this.currentUserValue;
+  public async isAuthenticated(): Promise<boolean> {
+    try {
+      const userData: User = this.getCurrentUserValue();
+      let validToken: boolean = false;
+      if (userData.token) {
+        validToken = await this.checkToken();
+      }
+
+      return validToken;
+    } catch (error) {
+      throw error;
+    }
   }
 }

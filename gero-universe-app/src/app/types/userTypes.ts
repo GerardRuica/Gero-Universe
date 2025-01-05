@@ -23,3 +23,8 @@ export interface UserRegister {
   firstName?: string;
   lastName?: string;
 }
+
+/** Response of the checkToken */
+export interface UserCheckTokenResponse {
+  valid: boolean;
+}

@@ -60,7 +60,7 @@ export class LoginPageComponent {
           this.router.navigate(['']);
         }
       } catch (error) {
-        console.error('Error when login', error);
+        throw error;
       }
     }
   }

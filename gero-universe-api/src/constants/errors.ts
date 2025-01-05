@@ -15,6 +15,16 @@ export const ERRORS = {
       code: "USER_REGISTERED_EMAIL",
       message: "Email already registered",
     },
+    INVALID_TOKEN: {
+      status: 401,
+      code: "INVALID_TOKEN",
+      message: "Invalid user token",
+    },
+    NOT_PROVIDED_TOKEN: {
+      status: 404,
+      code: "NOT_PROVIDED_TOKEN",
+      message: "User token not provided",
+    },
   },
   PERMISSIONS: {
     DENIED: {

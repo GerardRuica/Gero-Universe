@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import { JwtPayload } from "jsonwebtoken";
 import { IUserSession } from "../models/userModel";
+import { verifyToken } from "../utils/authUtils";
+import { ERRORS } from "../constants/errors";
 
 /**
  * Middleware to verify if user is authenticated or not
@@ -17,33 +19,24 @@ const isAuthenticated = (
   try {
     req.session = {};
 
-    const excludedRoutes: string[] = [
-      "/user/login",
-      "/user/register",
-      "/user/logout",
-      "/public",
-    ];
-
-    // We exclude this routes
+    // We exclude this routes, because otherwise a user would not be able to log in or register because they would not have a token.
+    const excludedRoutes: string[] = ["/user/login", "/user/register"];
     if (excludedRoutes.includes(req.path)) {
       return next();
     }
 
-    const token: any = req.cookies.access_token;
-    const data: JwtPayload | string = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string
-    );
-
-    req.session.user = data as IUserSession;
+    // We ignore when try to checkToken because data has been set on login
+    if (req.path !== "/user/checkToken") {
+      const data: JwtPayload | string = verifyToken(req.cookies.access_token);
+      req.session.user = data as IUserSession;
+    }
 
     next();
   } catch (error: any) {
-    if (error.name == "JsonWebTokenError") {
-      res
-        .status(401)
-        .send({ message: `Authentication error: user not logged` });
+    if (error.code === ERRORS.USER.INVALID_TOKEN.code) {
+      res.status(error.status).send({ message: error.message });
     } else {
+      res.status(500).send({ message: "Error when validate authentication" });
     }
   }
 };

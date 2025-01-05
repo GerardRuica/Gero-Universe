@@ -8,8 +8,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../../services/auth-service/auth.service';
-import { UserLogin } from '../../../../types/userTypes';
+import { User, UserLogin } from '../../../../types/userTypes';
 import { BasicButtonComponent } from '../../../../shared/basic/buttons/basic-button/basic-button.component';
+import { Router } from '@angular/router';
 
 /**
  * Page to login an user
@@ -34,10 +35,12 @@ export class LoginPageComponent {
    *
    * @param {FormBuilder} formBuilder Form builder to creates form
    * @param {AuthService} authService Auth service to login
+   * @param {Router} router Router to redirect user to home when login
    */
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -48,17 +51,17 @@ export class LoginPageComponent {
   /**
    * Function thad do actions of teh submit button
    */
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
       const { email, password }: UserLogin = this.loginForm.value;
-      this.authService.login(email, password).subscribe({
-        next: (response) => {
-          console.log('Successful login', response);
-        },
-        error: (error) => {
-          console.error('Error when login ', error);
-        },
-      });
+      try {
+        const user: User | null = await this.authService.login(email, password);
+        if (user) {
+          this.router.navigate(['']);
+        }
+      } catch (error) {
+        console.error('Error when login', error);
+      }
     }
   }
 }

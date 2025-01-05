@@ -1,7 +1,9 @@
 import express, { Request, Response, Router } from "express";
 import User, { IUser } from "../models/userModel";
 import bcrypt from "bcrypt";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import { ERRORS } from "../constants/errors";
+import createError from "http-errors";
 
 // Declaration of the user routes
 const userRoutes: Router = express.Router();
@@ -13,15 +15,21 @@ userRoutes.post(
     try {
       const { email, password }: IUser = req.body;
       const user: IUser | null = await User.findOne({ email });
+      const invalidCredentialsError: createError.HttpError<number> =
+        createError(
+          ERRORS.USER.INVALID_CREDENTIALS.status,
+          ERRORS.USER.INVALID_CREDENTIALS.message,
+          { code: ERRORS.USER.INVALID_CREDENTIALS.code }
+        );
 
-      if (!user) throw new Error("Invalid email or password");
+      if (!user) throw invalidCredentialsError;
 
       const validPassword: boolean = await bcrypt.compare(
         password,
         user.password
       );
 
-      if (!validPassword) throw new Error("Invalid email or password");
+      if (!validPassword) throw invalidCredentialsError;
 
       const token: string = jwt.sign(
         { userId: user._id },
@@ -42,7 +50,7 @@ userRoutes.post(
           token: token,
         });
     } catch (error: any) {
-      res.status(401).send({ message: `Error login user: ${error.message}` });
+      handleError(error, res, "Error when login");
     }
   }
 );
@@ -57,7 +65,13 @@ userRoutes.post(
         email: introducedUser.email,
       });
 
-      if (existingUser) throw new Error("Email already registered");
+      if (existingUser) {
+        throw createError(
+          ERRORS.USER.REGISTERED_EMAIL.status,
+          ERRORS.USER.REGISTERED_EMAIL.message,
+          { code: ERRORS.USER.REGISTERED_EMAIL.code }
+        );
+      }
 
       const hashedPassword: string = await bcrypt.hash(
         introducedUser.password,
@@ -70,9 +84,7 @@ userRoutes.post(
 
       res.status(201).json({ message: "User registered successfully" });
     } catch (error: any) {
-      res
-        .status(400)
-        .send({ message: `Error creating user: ${error.message}` });
+      handleError(error, res, "Error when register");
     }
   }
 );
@@ -84,9 +96,31 @@ userRoutes.post(
     try {
       res.clearCookie("access_token").json({ message: "Logout successful" });
     } catch (error: any) {
-      res.status(400).send({ message: `Error when logout: ${error.message}` });
+      handleError(error, res, "Error when logout");
     }
   }
 );
+
+/**
+ * Function to handle errors and send appropriate response.
+ *
+ * @param {Error} error The error object thrown
+ * @param {Response} res The Express response object
+ * @param {String} defaultErrorMessage Default error message of the error
+ */
+function handleError(
+  error: any,
+  res: Response,
+  defaultErrorMessage: String
+): void {
+  const errorCodes: string[] = [ERRORS.USER.INVALID_CREDENTIALS.code];
+
+  const errorCode: string = String(error.code);
+  if (errorCodes.includes(errorCode)) {
+    res.status(error.status).send({ message: error.message });
+  } else {
+    res.status(500).send({ message: defaultErrorMessage });
+  }
+}
 
 export default userRoutes;

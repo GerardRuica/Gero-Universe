@@ -5,6 +5,16 @@ export const ERRORS = {
       code: "USER_NOT_FOUND",
       message: "User not found",
     },
+    INVALID_CREDENTIALS: {
+      status: 401,
+      code: "USER_INVALID_CREDENTIALS",
+      message: "Invalid email or password",
+    },
+    REGISTERED_EMAIL: {
+      status: 400,
+      code: "USER_REGISTERED_EMAIL",
+      message: "Email already registered",
+    },
   },
   PERMISSIONS: {
     DENIED: {

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable, tap } from 'rxjs';
 import { User } from '../../types/userTypes';
 
 /**
@@ -43,17 +43,22 @@ export class AuthService {
    * @param {string} password User password
    * @returns User data from backend
    */
-  public login(email: string, password: string): Observable<any> {
-    return this.http
-      .post<any>(`${this.apiUrl}/user/login`, { email, password })
-      .pipe(
-        tap((user: User) => {
-          if (user && user.token) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
-          }
-        })
+  public async login(email: string, password: string): Promise<User | null> {
+    try {
+      const response = await firstValueFrom(
+        this.http.post<User>(`${this.apiUrl}/user/login`, { email, password })
       );
+
+      if (response && response.token) {
+        localStorage.setItem('currentUser', JSON.stringify(response));
+        this.currentUserSubject.next(response);
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Login failed:', error);
+      return null;
+    }
   }
 
   /**

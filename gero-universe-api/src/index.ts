@@ -17,7 +17,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // To accept CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:4200", // Aquí pones el dominio de tu frontend (puede ser un puerto diferente)
+    credentials: true, // Permite el envío de cookies entre dominios
+  })
+);
 
 // Middleware to check if an user has session or not
 app.use(isAuthenticated);

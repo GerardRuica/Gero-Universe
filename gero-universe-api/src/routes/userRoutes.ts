@@ -10,7 +10,7 @@ import { verifyToken } from "../utils/authUtils";
 const userRoutes: Router = express.Router();
 
 // Max time of the session
-const SESSION_TIME_H: number = 1;
+const SESSION_TIME_H: number = 2;
 
 // Function to authenticate an user
 userRoutes.post(
@@ -46,7 +46,7 @@ userRoutes.post(
           httpOnly: true,
           secure: false, //TODO: Hacerla true en produccion, es a decir que solo se pueda usar https
           maxAge: SESSION_TIME_H * 60 * 60,
-          sameSite: true,
+          sameSite: "none",
         })
         .send({
           userId: user._id,
@@ -108,6 +108,7 @@ userRoutes.post(
 // Function to check if user token is valid or not
 userRoutes.post("/checkToken", (req: Request, res: Response): void => {
   try {
+    console.log(req.cookies.access_token);
     const { token }: IUser = req.body;
     if (!token) {
       throw createError(

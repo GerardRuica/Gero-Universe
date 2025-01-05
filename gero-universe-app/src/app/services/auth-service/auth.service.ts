@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, firstValueFrom, Observable, tap } from 'rxjs';
@@ -46,7 +46,16 @@ export class AuthService {
   public async login(email: string, password: string): Promise<User | null> {
     try {
       const response: User = await firstValueFrom(
-        this.http.post<User>(`${this.apiUrl}/user/login`, { email, password })
+        this.http.post<User>(
+          `${this.apiUrl}/user/login`,
+          { email, password },
+          {
+            withCredentials: true,
+            headers: new HttpHeaders({
+              'Content-Type': 'application/json',
+            }),
+          }
+        )
       );
 
       if (response && response.token) {
@@ -72,6 +81,12 @@ export class AuthService {
           `${this.apiUrl}/user/checkToken`,
           {
             token: this.getCurrentUserValue().token,
+          },
+          {
+            withCredentials: true,
+            headers: new HttpHeaders({
+              'Content-Type': 'application/json',
+            }),
           }
         )
       );

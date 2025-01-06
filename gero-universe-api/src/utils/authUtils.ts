@@ -21,3 +21,9 @@ export function verifyToken(accessToken: string): JwtPayload | string {
     );
   }
 }
+
+export function registerUser(
+  username: string,
+  email: string,
+  password: string
+) {}

@@ -21,8 +21,11 @@ class UserController {
    */
   public async login(req: Request, res: Response): Promise<void> {
     try {
-      const { email, password }: IUser = req.body;
-      const user: IUser | null = await User.findOne({ email });
+      const introducedUser: IUser = req.body;
+      const user: IUser | null = await User.findOne({
+        email: introducedUser.email,
+      });
+
       const invalidCredentialsError: createError.HttpError<number> =
         createError(
           ERRORS.USER.INVALID_CREDENTIALS.status,
@@ -33,7 +36,7 @@ class UserController {
       if (!user) throw invalidCredentialsError;
 
       const validPassword: boolean = await bcrypt.compare(
-        password,
+        introducedUser.password,
         user.password
       );
 
@@ -71,6 +74,8 @@ class UserController {
   public async register(req: Request, res: Response): Promise<void> {
     try {
       const introducedUser: IUser = req.body;
+      this.validateUserData(introducedUser);
+
       const existingUser: IUser | null = await User.findOne({
         email: introducedUser.email,
       });
@@ -136,6 +141,33 @@ class UserController {
   }
 
   /**
+   * Validate user data
+   *
+   * @param {IUser} user User to validate
+   */
+  private validateUserData(user: IUser) {
+    // We create a regex for email (xxx@xxx.xxx)
+    const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!user.email || !emailRegex.test(user.email)) {
+      throw createError(
+        ERRORS.USER.INVALID_EMAIL.status,
+        ERRORS.USER.INVALID_EMAIL.message,
+        { code: ERRORS.USER.INVALID_EMAIL.code }
+      );
+    }
+
+    // We create a regex for password (min 8 character, 1 letter and 1 num)
+    const passwordRegex: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!user.password || !passwordRegex.test(user.password)) {
+      throw createError(
+        ERRORS.USER.INVALID_PASSWORD.status,
+        ERRORS.USER.INVALID_PASSWORD.message,
+        { code: ERRORS.USER.INVALID_PASSWORD.code }
+      );
+    }
+  }
+
+  /**
    * Function to handle errors and send appropriate response.
    *
    * @param {Error} error The error object thrown
@@ -152,6 +184,8 @@ class UserController {
       ERRORS.USER.NOT_PROVIDED_TOKEN.code,
       ERRORS.USER.INVALID_TOKEN.code,
       ERRORS.USER.REGISTERED_EMAIL.code,
+      ERRORS.USER.INVALID_EMAIL.code,
+      ERRORS.USER.INVALID_PASSWORD.code,
     ];
 
     const errorCode: string = String(error.code);

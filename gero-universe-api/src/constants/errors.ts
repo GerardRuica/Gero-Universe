@@ -25,6 +25,16 @@ export const ERRORS = {
       code: "NOT_PROVIDED_TOKEN",
       message: "User token not provided",
     },
+    INVALID_PASSWORD: {
+      status: 400,
+      code: "INVALID_PASSWORD",
+      message: "Invalid password",
+    },
+    INVALID_EMAIL: {
+      status: 400,
+      code: "INVALID_EMAIL",
+      message: "Invalid email format",
+    },
   },
   PERMISSIONS: {
     DENIED: {

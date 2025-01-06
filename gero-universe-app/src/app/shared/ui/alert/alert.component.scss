@@ -1,0 +1,28 @@
+.alert-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 7px;
+  height: 24px;
+  background-color: #136791;
+}
+
+p {
+  margin-left: 10px;
+}
+
+.info {
+  background-color: #136791;
+}
+
+.success {
+  background-color: #307216;
+}
+
+.warning {
+  background-color: #ac9724;
+}
+
+.error {
+  background-color: rgb(201, 62, 62); /* Rojo claro */
+}

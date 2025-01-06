@@ -10,6 +10,11 @@ h2 {
   margin: 0px 0px 30px;
 }
 
+.alert-container {
+  width: 400px; // register-container width + register-container left and right padding
+  margin-bottom: 15px;
+}
+
 .register-container {
   background-color: rgb(19, 18, 18);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5), 0px 2px 5px rgba(0, 0, 0, 0.3);

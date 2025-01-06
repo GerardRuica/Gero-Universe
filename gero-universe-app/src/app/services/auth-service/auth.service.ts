@@ -45,25 +45,52 @@ export class AuthService {
    */
   public async login(email: string, password: string): Promise<User | null> {
     try {
-      const response: User = await firstValueFrom(
+      const loginResponse: User = await firstValueFrom(
         this.http.post<User>(
           `${this.apiUrl}/user/login`,
           { email, password },
           {
             withCredentials: true,
-            headers: new HttpHeaders({
-              'Content-Type': 'application/json',
-            }),
           }
         )
       );
 
-      if (response && response.token) {
-        localStorage.setItem('currentUser', JSON.stringify(response));
-        this.currentUserSubject.next(response);
+      if (loginResponse && loginResponse.token) {
+        localStorage.setItem('currentUser', JSON.stringify(loginResponse));
+        this.currentUserSubject.next(loginResponse);
       }
 
-      return response;
+      return loginResponse;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Function to register an user
+   *
+   * @param username Username of the user
+   * @param email Email of the user
+   * @param password Password of the user
+   * @returns
+   */
+  public async register(
+    username: string,
+    email: string,
+    password: string
+  ): Promise<User | null> {
+    try {
+      const registerResponse: User = await firstValueFrom(
+        this.http.post<User>(
+          `${this.apiUrl}/user/register`,
+          { username, email, password },
+          {
+            withCredentials: true,
+          }
+        )
+      );
+
+      return registerResponse;
     } catch (error) {
       throw error;
     }
@@ -77,9 +104,8 @@ export class AuthService {
   public async checkToken(): Promise<boolean> {
     try {
       const response: UserCheckTokenResponse = await firstValueFrom(
-        this.http.post<UserCheckTokenResponse>(
+        this.http.get<UserCheckTokenResponse>(
           `${this.apiUrl}/user/checkToken`,
-          {},
           {
             withCredentials: true,
           }
@@ -95,10 +121,21 @@ export class AuthService {
   /**
    * Function to log out user (removes current user token from localStorage)
    */
-  public logout(): void {
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next({});
-    this.router.navigate(['/login']);
+  public async logout(): Promise<void> {
+    try {
+      localStorage.removeItem('currentUser');
+      this.currentUserSubject.next({});
+
+      await firstValueFrom(
+        this.http.get<void>(`${this.apiUrl}/user/logout`, {
+          withCredentials: true,
+        })
+      );
+
+      this.router.navigate(['/login']);
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**

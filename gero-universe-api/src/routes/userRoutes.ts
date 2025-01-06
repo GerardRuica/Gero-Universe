@@ -94,7 +94,7 @@ userRoutes.post(
 );
 
 // Function to close session of an user
-userRoutes.post(
+userRoutes.get(
   "/logout",
   async (req: Request, res: Response): Promise<void> => {
     try {
@@ -106,7 +106,7 @@ userRoutes.post(
 );
 
 // Function to check if user token is valid or not
-userRoutes.post("/checkToken", (req: Request, res: Response): void => {
+userRoutes.get("/checkToken", (req: Request, res: Response): void => {
   try {
     const token: string = req.cookies.access_token;
     if (!token) {

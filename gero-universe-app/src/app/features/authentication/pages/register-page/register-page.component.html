@@ -1,1 +1,52 @@
-<p>register-page works!</p>
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <div class="register-title"><h2>Register</h2></div>
+    <div class="field">
+      <form-input
+        [labelText]="'Username'"
+        [placeholderText]="'Introduce your username'"
+        [type]="'text'"
+        formControlName="username"
+      ></form-input>
+    </div>
+    <div class="field">
+      <form-input
+        [labelText]="'Email'"
+        [placeholderText]="'Introduce your email'"
+        [type]="'email'"
+        formControlName="email"
+      ></form-input>
+    </div>
+    <div class="field">
+      <form-input
+        [labelText]="'Repeat email'"
+        [placeholderText]="'Repeat your email'"
+        [type]="'email'"
+        formControlName="repeatEmail"
+      ></form-input>
+    </div>
+    <div class="field">
+      <form-input
+        [labelText]="'Password'"
+        [placeholderText]="'Introduce your password'"
+        [type]="'password'"
+        formControlName="password"
+      ></form-input>
+    </div>
+    <div class="field">
+      <form-input
+        [labelText]="'Repeat password'"
+        [placeholderText]="'Repeat your password'"
+        [type]="'password'"
+        formControlName="repeatPassword"
+      ></form-input>
+    </div>
+    <div class="button-field">
+      <basic-button
+        [text]="'Register'"
+        [type]="'submit'"
+        [color]="'#633974'"
+      ></basic-button>
+    </div>
+  </form>
+</div>

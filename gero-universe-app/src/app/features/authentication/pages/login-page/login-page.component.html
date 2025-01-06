@@ -1,5 +1,5 @@
 <div class="login-container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="login-title"><h2>Login</h2></div>
     <div class="field">
       <form-input
@@ -13,6 +13,7 @@
       <form-input
         [labelText]="'Password'"
         [placeholderText]="'Introduce your password'"
+        [type]="'password'"
         formControlName="password"
       ></form-input>
     </div>

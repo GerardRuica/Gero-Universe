@@ -17,6 +17,13 @@ export interface UserLogin {
 
 /** User type with data needed to register */
 export interface UserRegister {
+  username: string;
+  email: string;
+  password: string;
+}
+
+/** User type with data needed to register */
+export interface UserRegister {
   email: string;
   username: string;
   password: string;

@@ -49,9 +49,9 @@ export class LoginPageComponent {
   }
 
   /**
-   * Function thad do actions of teh submit button
+   * Function thad do actions of teh submit button. Login an user
    */
-  public async onSubmit(): Promise<void> {
+  public async login(): Promise<void> {
     if (this.loginForm.valid) {
       const { email, password }: UserLogin = this.loginForm.value;
       try {

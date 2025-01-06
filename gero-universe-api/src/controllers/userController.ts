@@ -145,7 +145,7 @@ class UserController {
    *
    * @param {IUser} user User to validate
    */
-  private validateUserData(user: IUser) {
+  private validateUserData(user: IUser): void {
     // We create a regex for email (xxx@xxx.xxx)
     const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!user.email || !emailRegex.test(user.email)) {

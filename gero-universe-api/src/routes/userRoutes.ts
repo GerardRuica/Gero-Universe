@@ -139,6 +139,7 @@ function handleError(
     ERRORS.USER.INVALID_CREDENTIALS.code,
     ERRORS.USER.NOT_PROVIDED_TOKEN.code,
     ERRORS.USER.INVALID_TOKEN.code,
+    ERRORS.USER.REGISTERED_EMAIL.code,
   ];
 
   const errorCode: string = String(error.code);

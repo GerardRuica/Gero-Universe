@@ -44,9 +44,9 @@ userRoutes.post(
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          secure: false, //TODO: Hacerla true en produccion, es a decir que solo se pueda usar https
-          maxAge: SESSION_TIME_H * 60 * 60,
-          sameSite: "none",
+          secure: process.env.NODE_ENV === "production",
+          maxAge: SESSION_TIME_H * 60 * 60 * 1000,
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         })
         .send({
           userId: user._id,
@@ -108,8 +108,7 @@ userRoutes.post(
 // Function to check if user token is valid or not
 userRoutes.post("/checkToken", (req: Request, res: Response): void => {
   try {
-    console.log(req.cookies.access_token);
-    const { token }: IUser = req.body;
+    const token: string = req.cookies.access_token;
     if (!token) {
       throw createError(
         ERRORS.USER.NOT_PROVIDED_TOKEN.status,

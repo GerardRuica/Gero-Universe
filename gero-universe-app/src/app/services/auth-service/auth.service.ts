@@ -79,14 +79,9 @@ export class AuthService {
       const response: UserCheckTokenResponse = await firstValueFrom(
         this.http.post<UserCheckTokenResponse>(
           `${this.apiUrl}/user/checkToken`,
-          {
-            token: this.getCurrentUserValue().token,
-          },
+          {},
           {
             withCredentials: true,
-            headers: new HttpHeaders({
-              'Content-Type': 'application/json',
-            }),
           }
         )
       );

@@ -1,7 +1,7 @@
 import express, { Request, Response, Router } from "express";
 import User, { IUser } from "../models/userModel";
 import bcrypt from "bcrypt";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { ERRORS } from "../constants/errors";
 import createError from "http-errors";
 import { verifyToken } from "../utils/authUtils";
@@ -9,7 +9,7 @@ import { verifyToken } from "../utils/authUtils";
 // Declaration of the user routes
 const userRoutes: Router = express.Router();
 
-// Max time of the session
+// Max time (h) of the session
 const SESSION_TIME_H: number = 2;
 
 // Function to authenticate an user

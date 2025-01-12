@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, firstValueFrom, Observable, tap } from 'rxjs';
 import { User, UserCheckTokenResponse } from '../../types/userTypes';
+import { environment } from '../../../environments/environment';
 
 /**
  * Injectable to authenticate user and get user data
@@ -11,8 +12,6 @@ import { User, UserCheckTokenResponse } from '../../types/userTypes';
   providedIn: 'root',
 })
 export class AuthService {
-  /** Url of the backend */
-  private apiUrl: string = 'http://localhost:3000';
   /** Current user subject */
   private currentUserSubject: BehaviorSubject<User>;
   /** Current user with user info */
@@ -47,7 +46,7 @@ export class AuthService {
     try {
       const loginResponse: User = await firstValueFrom(
         this.http.post<User>(
-          `${this.apiUrl}/user/login`,
+          `${environment.API_URL}/user/login`,
           { email, password },
           {
             withCredentials: true,
@@ -82,7 +81,7 @@ export class AuthService {
     try {
       const registerResponse: User = await firstValueFrom(
         this.http.post<User>(
-          `${this.apiUrl}/user/register`,
+          `${environment.API_URL}/user/register`,
           { username, email, password },
           {
             withCredentials: true,
@@ -105,7 +104,7 @@ export class AuthService {
     try {
       const response: UserCheckTokenResponse = await firstValueFrom(
         this.http.get<UserCheckTokenResponse>(
-          `${this.apiUrl}/user/checkToken`,
+          `${environment.API_URL}/user/checkToken`,
           {
             withCredentials: true,
           }
@@ -127,7 +126,7 @@ export class AuthService {
       this.currentUserSubject.next({});
 
       await firstValueFrom(
-        this.http.get<void>(`${this.apiUrl}/user/logout`, {
+        this.http.get<void>(`${environment.API_URL}/user/logout`, {
           withCredentials: true,
         })
       );

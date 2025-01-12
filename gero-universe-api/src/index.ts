@@ -1,12 +1,14 @@
 import express, { Request, Response } from "express";
-import appRoutes from "./routes/appRoutes";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import * as dotenv from "dotenv";
-import isAuthenticated from "./middlewares/authMiddleware";
 
 // To enable .env files
+import * as dotenv from "dotenv";
 dotenv.config();
+
+// Imports of the app
+import appRoutes from "./routes/appRoutes";
+import isAuthenticated from "./middlewares/authMiddleware";
 
 // To create an express app
 const app = express();

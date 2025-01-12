@@ -12,4 +12,20 @@ Run container: `docker run -d --name gero-universe-api-container -p 3000:3000/tc
 
 ## Create an .env file
 
-On .env file we have to add "JWT_SECRET" var to assign JWD secret
+Create .env file on srd and add:
+
+```
+JWT_SECRET=""
+PORT=""
+SERVER_ROUTE=""
+FRONT_END_HOST=""
+GERO_UNIVERSE_DB_CONNECTION=""
+YOUR_CHEF_DB_CONNECTION=""
+```
+
+- JWT_SECRET: secret of the jason web token
+- PORT: port of the server
+- SERVER_ROUTE: route of the server. Example: "http://localhost:"
+- FRONT_END_HOST: url of the frontend
+- GERO_UNIVERSE_DB_CONNECTION: url of the connection to gero universe db
+- YOUR_CHEF_DB_CONNECTION: url of the connection to your chef db

@@ -7,62 +7,6 @@ import jwt from "jsonwebtoken";
 import { verifyToken } from "../utils/authUtils";
 
 /**
- * Function to handle errors and send appropriate response.
- *
- * @param {Error} error The error object thrown
- * @param {Response} res The Express response object
- * @param {String} defaultErrorMessage Default error message of the error
- */
-function handleError(
-  error: any,
-  res: Response,
-  defaultErrorMessage: String
-): void {
-  const errorCodes: string[] = [
-    ERRORS.USER.INVALID_CREDENTIALS.code,
-    ERRORS.USER.NOT_PROVIDED_TOKEN.code,
-    ERRORS.USER.INVALID_TOKEN.code,
-    ERRORS.USER.REGISTERED_EMAIL.code,
-    ERRORS.USER.INVALID_EMAIL.code,
-    ERRORS.USER.INVALID_PASSWORD.code,
-  ];
-
-  const errorCode: string = String(error.code);
-  if (errorCodes.includes(errorCode)) {
-    res.status(error.status).send({ message: error.message, name: "error" });
-  } else {
-    res.status(500).send({ message: defaultErrorMessage, name: "error" });
-  }
-}
-
-/**
- * Validate user data
- *
- * @param {IUser} user User to validate
- */
-function validateUserData(user: IUser): void {
-  // We create a regex for email (xxx@xxx.xxx)
-  const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!user.email || !emailRegex.test(user.email)) {
-    throw createError(
-      ERRORS.USER.INVALID_EMAIL.status,
-      ERRORS.USER.INVALID_EMAIL.message,
-      { code: ERRORS.USER.INVALID_EMAIL.code }
-    );
-  }
-
-  // We create a regex for password (min 8 character, 1 letter and 1 num)
-  const passwordRegex: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  if (!user.password || !passwordRegex.test(user.password)) {
-    throw createError(
-      ERRORS.USER.INVALID_PASSWORD.status,
-      ERRORS.USER.INVALID_PASSWORD.message,
-      { code: ERRORS.USER.INVALID_PASSWORD.code }
-    );
-  }
-}
-
-/**
  * Class to manage user functions
  */
 class UserController {
@@ -117,7 +61,7 @@ class UserController {
           token: token,
         });
     } catch (error: any) {
-      handleError(error, res, "Error when login");
+      this.handleError(error, res, "Error when login");
     }
   }
 
@@ -130,7 +74,7 @@ class UserController {
   public async register(req: Request, res: Response): Promise<void> {
     try {
       const introducedUser: IUser = req.body;
-      validateUserData(introducedUser);
+      this.validateUserData(introducedUser);
 
       const existingUser: IUser | null = await User.findOne({
         email: introducedUser.email,
@@ -156,7 +100,7 @@ class UserController {
       res.status(201).json({ message: "User registered successfully" });
     } catch (error: any) {
       console.log(error);
-      handleError(error, res, "Error when register");
+      this.handleError(error, res, "Error when register");
     }
   }
 
@@ -170,7 +114,7 @@ class UserController {
     try {
       res.clearCookie("access_token").json({ message: "Logout successful" });
     } catch (error: any) {
-      handleError(error, res, "Error when logout");
+      this.handleError(error, res, "Error when logout");
     }
   }
 
@@ -193,7 +137,63 @@ class UserController {
 
       res.json({ valid: !!verifyToken(token) });
     } catch (error: any) {
-      handleError(error, res, "Error when check token");
+      this.handleError(error, res, "Error when check token");
+    }
+  }
+
+  /**
+   * Function to handle errors and send appropriate response.
+   *
+   * @param {Error} error The error object thrown
+   * @param {Response} res The Express response object
+   * @param {String} defaultErrorMessage Default error message of the error
+   */
+  public handleError = (
+    error: any,
+    res: Response,
+    defaultErrorMessage: string
+  ): void => {
+    const errorCodes: string[] = [
+      ERRORS.USER.INVALID_CREDENTIALS.code,
+      ERRORS.USER.NOT_PROVIDED_TOKEN.code,
+      ERRORS.USER.INVALID_TOKEN.code,
+      ERRORS.USER.REGISTERED_EMAIL.code,
+      ERRORS.USER.INVALID_EMAIL.code,
+      ERRORS.USER.INVALID_PASSWORD.code,
+    ];
+
+    const errorCode: string = String(error.code);
+    if (errorCodes.includes(errorCode)) {
+      res.status(error.status).send({ message: error.message, name: "error" });
+    } else {
+      res.status(500).send({ message: defaultErrorMessage, name: "error" });
+    }
+  };
+
+  /**
+   * Validate user data
+   *
+   * @param {IUser} user User to validate
+   */
+  private validateUserData(user: IUser): void {
+    // We create a regex for email (xxx@xxx.xxx)
+    const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!user.email || !emailRegex.test(user.email)) {
+      throw createError(
+        ERRORS.USER.INVALID_EMAIL.status,
+        ERRORS.USER.INVALID_EMAIL.message,
+        { code: ERRORS.USER.INVALID_EMAIL.code }
+      );
+    }
+
+    // We create a regex for password (min 8 character, 1 letter and 1 num)
+    const passwordRegex: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!user.password || !passwordRegex.test(user.password)) {
+      throw createError(
+        ERRORS.USER.INVALID_PASSWORD.status,
+        ERRORS.USER.INVALID_PASSWORD.message,
+        { code: ERRORS.USER.INVALID_PASSWORD.code }
+      );
     }
   }
 }

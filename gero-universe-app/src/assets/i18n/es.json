@@ -1,6 +1,7 @@
 {
   "BASIC": {
-    "test": "test es"
+    "test": "test es",
+    "others": "Otros"
   },
   "APPS": {
     "YOUR_CHEF": {}

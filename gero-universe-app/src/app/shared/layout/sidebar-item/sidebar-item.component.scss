@@ -1,71 +1,29 @@
-.item-container {
-  display: flex;
-  flex-direction: column;
-  padding: 1px 5px 1px 5px;
+a {
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  padding: 1px 5px;
+  margin: 1px 0;
   color: #9b9b90;
   cursor: pointer;
 }
 
-.header-area {
+.item-content {
   padding: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
   border-radius: 6px;
 
-  .logo-area {
+  .item-logo {
     margin-left: 5px;
-  }
-
-  .title-area {
-    margin-left: 10px;
-  }
-
-  .open-btn {
-    margin-left: auto;
-    margin-right: 5px;
-    width: 20px;
     height: 20px;
-  }
-
-  .open-btn.open svg {
-    transform: rotate(90deg);
+    width: 20px;
   }
 }
 
-.list-area {
-  margin-top: 3px;
-
-  /* We do the n-g deep so that these styles are assigned to this component even if in another component where this one is used there are different styles */
-  ::ng-deep {
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    li {
-      padding: 5px;
-      border-radius: 6px;
-      margin-top: 1px;
-    }
-
-    li:hover {
-      background-color: #222222;
-    }
-
-    p {
-      margin-left: 35px;
-    }
-  }
-}
-
-/* We do the n-g deep so that these styles are assigned to this component even if in another component where this one is used there are different styles */
-::ng-deep {
-  svg,
-  object {
-    width: 20px;
-    height: 20px;
-    fill: #9b9b90;
-  }
+.item-content:hover {
+  background-color: #222222;
 }

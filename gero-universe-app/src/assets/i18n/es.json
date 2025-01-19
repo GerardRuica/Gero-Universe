@@ -1,0 +1,11 @@
+{
+  "BASIC": {
+    "test": "test es"
+  },
+  "APPS": {
+    "YOUR_CHEF": {}
+  },
+  "GERO_UNIVERSE": {
+    "welcome": "Bienvenido a Gero Universe"
+  }
+}

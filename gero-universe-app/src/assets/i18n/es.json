@@ -4,7 +4,12 @@
     "others": "Otros"
   },
   "APPS": {
-    "YOUR_CHEF": {}
+    "YOUR_CHEF": {
+      "recipe_welcome": "Bienvenido a las recetas",
+      "ingredients_welcome": "Bienvenido a los ingedientes",
+      "search_recipe": "Buscar una receta",
+      "search_ingredient": "Buscar un ingrediente"
+    }
   },
   "GERO_UNIVERSE": {
     "welcome": "Bienvenido a Gero Universe"

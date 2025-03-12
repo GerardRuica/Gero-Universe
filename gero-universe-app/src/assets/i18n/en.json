@@ -3,7 +3,12 @@
     "test": "test en"
   },
   "APPS": {
-    "YOUR_CHEF": {}
+    "YOUR_CHEF": {
+      "recipe_welcome": "Welcome to recipes",
+      "ingredients_welcome": "Welcome to the ingredients",
+      "search_recipe": "Search for a recipe",
+      "search_ingredient": "Search an ingredient"
+    }
   },
   "GERO_UNIVERSE": {
     "welcome": "Welcome to Gero Universe"

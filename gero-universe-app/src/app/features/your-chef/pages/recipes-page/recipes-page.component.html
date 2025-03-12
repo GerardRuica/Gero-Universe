@@ -1,7 +1,11 @@
 <div class="header-container">
-  <h1>Bienvenido a las recetas</h1>
+  <h1>
+    {{ "APPS.YOUR_CHEF.recipe_welcome" | translate }}
+  </h1>
   <div class="search-container">
-    <search-input [placeholder]="'Busca una receta'"></search-input>
+    <search-input
+      [placeholder]="'APPS.YOUR_CHEF.search_recipe' | translate"
+    ></search-input>
   </div>
 </div>
 <div class="card-container">

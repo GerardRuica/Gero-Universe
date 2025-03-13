@@ -1,4 +1,10 @@
 <div class="ingredient-card">
-  <div class="ingredient-icon"></div>
-  <div class="ingredient-name">Pimineta negra</div>
+  <div class="ingredient-icon" [style.background-color]="backgroundColor">
+    <svg width="40" height="40">
+      <use
+        [attr.xlink:href]="'assets/icons/ingredients-icons.svg#potato'"
+      ></use>
+    </svg>
+  </div>
+  <div class="ingredient-name">{{ ingredientName }}</div>
 </div>

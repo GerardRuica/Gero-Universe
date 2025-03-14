@@ -3,7 +3,6 @@ import { SearchInputComponent } from '../../../../shared/inputs/search-input/sea
 import { TranslateModule } from '@ngx-translate/core';
 import { IngredientCardComponent } from '../../components/ingredient-card/ingredient-card.component';
 import { Ingredient } from '../../types/yourChefBasicTypes';
-import { HttpClient } from '@angular/common/http';
 import { IngredientService } from '../../services/ingredient.service';
 
 @Component({
@@ -20,10 +19,7 @@ export class IngredientsPageComponent implements OnInit {
    *
    * @param {IngredientService} ingredientService
    */
-  constructor(
-    private ingredientService: IngredientService,
-    private http: HttpClient
-  ) {}
+  constructor(private ingredientService: IngredientService) {}
 
   public async ngOnInit(): Promise<void> {
     try {

@@ -2,9 +2,11 @@
   <div class="ingredient-icon" [style.background-color]="backgroundColor">
     <svg width="40" height="40">
       <use
-        [attr.xlink:href]="'assets/icons/ingredients-icons.svg#potato'"
+        [attr.xlink:href]="
+          'assets/icons/ingredients-icons.svg#' + ingredient.icon
+        "
       ></use>
     </svg>
   </div>
-  <div class="ingredient-name">{{ ingredientName }}</div>
+  <div class="ingredient-name">{{ ingredient.name }}</div>
 </div>

@@ -5,7 +5,17 @@ import Ingredient from "../models/ingredientModel";
 const ingredientsRoutes: Router = express.Router();
 
 // Function to get an ingredient
-ingredientsRoutes.get("/", async (req: Request, res: Response) => {});
+ingredientsRoutes.get(
+  "/getIngredients",
+  async (req: Request, res: Response) => {
+    try {
+      const ingredients = await Ingredient.find().select("-__v");
+      res.status(200).json(ingredients);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching ingredients" });
+    }
+  }
+);
 
 // Function to add a new ingredient to DB
 ingredientsRoutes.post(

@@ -1,5 +1,8 @@
 /** Ingredient type with necessary data*/
 export interface Ingredient {
-  name: String;
-  type: String;
+  name?: string;
+  description?: string;
+  type?: string;
+  unit?: string;
+  icon?: string;
 }

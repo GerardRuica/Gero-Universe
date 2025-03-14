@@ -8,13 +8,18 @@ export const IngredientSchema: mongoose.Schema = new mongoose.Schema({
     required: [true, "Ingredient name is required"],
     unique: true,
   },
+  identifier: {
+    type: String,
+    required: [true, "Ingredient identifier is required"],
+    unique: true,
+  },
   description: { type: String },
   type: {
     type: String,
     required: [true, "Ingredient type is required"],
   },
   unit: { type: String },
-  photo: { type: String },
+  icon: { type: String },
 });
 
 const Ingredient: mongoose.Model<any> = geroUniverseYourChefDBConnection.model(

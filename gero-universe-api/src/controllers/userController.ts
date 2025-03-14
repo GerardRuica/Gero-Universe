@@ -99,7 +99,6 @@ class UserController {
 
       res.status(201).json({ message: "User registered successfully" });
     } catch (error: any) {
-      console.log(error);
       this.handleError(error, res, "Error when register");
     }
   }

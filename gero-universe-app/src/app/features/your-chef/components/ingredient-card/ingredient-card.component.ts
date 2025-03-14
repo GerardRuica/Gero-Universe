@@ -12,9 +12,7 @@ import { Ingredient } from '../../types/yourChefBasicTypes';
 })
 export class IngredientCardComponent implements OnInit {
   /** Ingredient to show in card */
-  @Input() ingredient: Ingredient = { name: '', type: '' };
-  @Input() ingredientName: string = '';
-  @Input() ingredientType: string = '';
+  @Input() ingredient: Ingredient = {};
 
   /** Background color of the card */
   public backgroundColor: string = '';
@@ -45,6 +43,7 @@ export class IngredientCardComponent implements OnInit {
       liquid: '#A8CEF8',
     };
 
-    this.backgroundColor = colors[this.ingredientType] || 'gray';
+    this.backgroundColor =
+      colors[this.ingredient.type?.toLocaleLowerCase() ?? 'default'] || 'gray';
   }
 }

@@ -29,8 +29,6 @@ export class IngredientsPageComponent implements OnInit {
     try {
       this.ingredients = await this.ingredientService.getAllIngredients();
     } catch (error) {
-      console.log;
-      console.log('AAAAadasdss');
       throw error;
     }
   }

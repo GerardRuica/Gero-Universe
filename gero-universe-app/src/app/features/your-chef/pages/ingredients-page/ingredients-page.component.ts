@@ -20,12 +20,17 @@ export class IngredientsPageComponent implements OnInit {
    *
    * @param {IngredientService} ingredientService
    */
-  constructor(private ingredientService: IngredientService) {}
+  constructor(
+    private ingredientService: IngredientService,
+    private http: HttpClient
+  ) {}
 
   public async ngOnInit(): Promise<void> {
     try {
       this.ingredients = await this.ingredientService.getAllIngredients();
     } catch (error) {
+      console.log;
+      console.log('AAAAadasdss');
       throw error;
     }
   }

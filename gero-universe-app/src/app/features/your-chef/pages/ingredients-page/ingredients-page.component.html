@@ -1,3 +1,10 @@
+<div class="add-button-field">
+  <basic-button
+    [text]="'APPS.YOUR_CHEF.add_ingredient' | translate"
+    color="#FF9932"
+    (click)="openCreateIngredient()"
+  ></basic-button>
+</div>
 <div class="header-container">
   <h1>{{ "APPS.YOUR_CHEF.ingredients_welcome" | translate }}</h1>
   <div class="search-container">
@@ -10,4 +17,7 @@
   @for (ingredient of ingredients; track ingredient) {
   <ingredient-card [ingredient]="ingredient"></ingredient-card>
   }
+</div>
+<div class="create-ingredient-modal">
+  <p>ss</p>
 </div>

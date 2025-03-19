@@ -4,10 +4,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IngredientCardComponent } from '../../components/ingredient-card/ingredient-card.component';
 import { Ingredient } from '../../types/yourChefBasicTypes';
 import { IngredientService } from '../../services/ingredient.service';
+import { BasicButtonComponent } from '../../../../shared/basic/buttons/basic-button/basic-button.component';
+import { ModalService } from '../../../../services/modal-service/modal-service.service';
 
 @Component({
   selector: 'ingredients-page',
-  imports: [SearchInputComponent, TranslateModule, IngredientCardComponent],
+  imports: [
+    SearchInputComponent,
+    TranslateModule,
+    IngredientCardComponent,
+    BasicButtonComponent,
+  ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',
 })
@@ -19,7 +26,10 @@ export class IngredientsPageComponent implements OnInit {
    *
    * @param {IngredientService} ingredientService
    */
-  constructor(private ingredientService: IngredientService) {}
+  constructor(
+    private ingredientService: IngredientService,
+    private modalService: ModalService
+  ) {}
 
   public async ngOnInit(): Promise<void> {
     try {
@@ -28,4 +38,6 @@ export class IngredientsPageComponent implements OnInit {
       throw error;
     }
   }
+
+  public openCreateIngredient() {}
 }

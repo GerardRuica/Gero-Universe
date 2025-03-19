@@ -1,6 +1,7 @@
 {
   "BASIC": {
-    "test": "test en"
+    "test": "test en",
+    "others": "Others"
   },
   "APPS": {
     "YOUR_CHEF": {
@@ -8,6 +9,7 @@
       "ingredients_welcome": "Welcome to the ingredients",
       "search_recipe": "Search for a recipe",
       "search_ingredient": "Search an ingredient",
+      "add_ingredient": "Add ingredient",
       "INGREDIENTS": {
         "veal": "Veal",
         "potato": "Potato",

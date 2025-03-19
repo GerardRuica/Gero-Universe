@@ -8,7 +8,12 @@
       "recipe_welcome": "Bienvenido a las recetas",
       "ingredients_welcome": "Bienvenido a los ingedientes",
       "search_recipe": "Buscar una receta",
-      "search_ingredient": "Buscar un ingrediente"
+      "search_ingredient": "Buscar un ingrediente",
+      "INGREDIENTS": {
+        "veal": "Ternera",
+        "potato": "Patata",
+        "default_ingredient_id": "Default"
+      }
     }
   },
   "GERO_UNIVERSE": {

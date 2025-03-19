@@ -7,7 +7,12 @@
       "recipe_welcome": "Welcome to recipes",
       "ingredients_welcome": "Welcome to the ingredients",
       "search_recipe": "Search for a recipe",
-      "search_ingredient": "Search an ingredient"
+      "search_ingredient": "Search an ingredient",
+      "INGREDIENTS": {
+        "veal": "Veal",
+        "potato": "Potato",
+        "default_ingredient_id": "Default"
+      }
     }
   },
   "GERO_UNIVERSE": {

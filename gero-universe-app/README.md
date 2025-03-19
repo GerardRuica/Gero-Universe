@@ -10,3 +10,12 @@ export const environment = {
 };
 
 ```
+
+## To execute in dev mode
+
+1. `npm start`
+
+## To compile and execute (prod mode)
+
+1. `ng build --configuration=production`
+2. `serve -s .\dist\gero-universe-app\ -l 4200`

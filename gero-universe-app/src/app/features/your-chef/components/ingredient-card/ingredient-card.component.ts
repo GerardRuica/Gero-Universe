@@ -1,27 +1,33 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Ingredient } from '../../types/yourChefBasicTypes';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component to make an ingredient card
  */
 @Component({
   selector: 'ingredient-card',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './ingredient-card.component.html',
   styleUrl: './ingredient-card.component.scss',
 })
 export class IngredientCardComponent implements OnInit {
+  private readonly INGREDIENT_I18_PATH = 'APPS.YOUR_CHEF.INGREDIENTS.';
+
   /** Ingredient to show in card */
   @Input() ingredient: Ingredient = {};
 
   /** Background color of the card */
   public backgroundColor: string = '';
+  /** Ingredient name */
+  public ingredientName: string = '';
 
   /**
    * Initialize component
    */
   public ngOnInit(): void {
     this.setBackgroundColor();
+    this.ingredientName = this.INGREDIENT_I18_PATH + this.ingredient.identifier;
   }
 
   /**
@@ -45,5 +51,14 @@ export class IngredientCardComponent implements OnInit {
 
     this.backgroundColor =
       colors[this.ingredient.type?.toLocaleLowerCase() ?? 'default'] || 'gray';
+  }
+
+  /**
+   * Get ingredient name
+   */
+  private getIngredientName() {
+    this.ingredientName =
+      this.INGREDIENT_I18_PATH +
+      (this.ingredient?.identifier ?? 'default_ingredient_id');
   }
 }

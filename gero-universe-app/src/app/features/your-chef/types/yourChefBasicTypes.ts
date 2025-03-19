@@ -5,4 +5,5 @@ export interface Ingredient {
   type?: string;
   unit?: string;
   icon?: string;
+  identifier?: string;
 }

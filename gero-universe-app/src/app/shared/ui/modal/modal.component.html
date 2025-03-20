@@ -1,1 +1,25 @@
-<div class="modal-container"></div>
+@if(open) {
+<div class="modal-overlay"></div>
+<div class="modal-container" [ngStyle]="{ width: width }">
+  <div class="modal-title">
+    <h2>{{ title }}</h2>
+  </div>
+  <hr />
+  <div class="modal-content">
+    <ng-content> </ng-content>
+  </div>
+  <hr />
+  <div class="modal-buttons">
+    <basic-button
+      [color]="'red'"
+      [text]="closeButtonText"
+      (click)="close()"
+    ></basic-button>
+    <basic-button
+      [color]="'green'"
+      [text]="submitButtonText"
+      (click)="submit()"
+    ></basic-button>
+  </div>
+</div>
+}

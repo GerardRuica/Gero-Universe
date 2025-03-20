@@ -1,15 +1,26 @@
 {
   "BASIC": {
     "test": "test en",
-    "others": "Others"
+    "others": "Others",
+    "create": "Create",
+    "cancel": "Cancel"
   },
   "APPS": {
     "YOUR_CHEF": {
       "recipe_welcome": "Welcome to recipes",
       "ingredients_welcome": "Welcome to the ingredients",
       "search_recipe": "Search for a recipe",
-      "search_ingredient": "Search an ingredient",
-      "add_ingredient": "Add ingredient",
+      "INGREDIENT": {
+        "search_ingredient": "Search an ingredient",
+        "add_ingredient": "Add ingredient",
+        "create_ingredient": "Create ingredient",
+        "ingredient_name": "Ingredient name",
+        "introduce_ingredient_name": "Introduce ingredient name",
+        "ingredient_desc": "Ingredient description",
+        "introduce_ingredient_desc": "Introduce ingredient description",
+        "ingredient_type": "Ingredient type",
+        "introduce_ingredient_type": "Introduce ingredient type"
+      },
       "INGREDIENTS": {
         "veal": "Veal",
         "potato": "Potato",

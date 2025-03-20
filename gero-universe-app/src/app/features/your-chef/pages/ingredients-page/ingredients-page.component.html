@@ -1,6 +1,6 @@
 <div class="add-button-field">
   <basic-button
-    [text]="'APPS.YOUR_CHEF.add_ingredient' | translate"
+    [text]="'APPS.YOUR_CHEF.INGREDIENT.add_ingredient' | translate"
     color="#FF9932"
     (click)="openCreateIngredient()"
   ></basic-button>
@@ -9,7 +9,7 @@
   <h1>{{ "APPS.YOUR_CHEF.ingredients_welcome" | translate }}</h1>
   <div class="search-container">
     <search-input
-      [placeholder]="'APPS.YOUR_CHEF.search_ingredient' | translate"
+      [placeholder]="'APPS.YOUR_CHEF.INGREDIENT.search_ingredient' | translate"
     ></search-input>
   </div>
 </div>
@@ -18,6 +18,44 @@
   <ingredient-card [ingredient]="ingredient"></ingredient-card>
   }
 </div>
-<div class="create-ingredient-modal">
-  <p>ss</p>
-</div>
+<modal
+  [open]="openedCreateModal"
+  [title]="'APPS.YOUR_CHEF.INGREDIENT.create_ingredient' | translate"
+  [submitButtonText]="'BASIC.create' | translate"
+  [closeButtonText]="'BASIC.cancel' | translate"
+  (submitEvent)="createIngredient()"
+  (closeEvent)="closeCreateIngredient()"
+>
+  <form>
+    <div class="field">
+      <form-input
+        [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_name' | translate"
+        [placeholderText]="
+          'APPS.YOUR_CHEF.INGREDIENT.introduce_ingredient_name' | translate
+        "
+        [type]="'text'"
+        formControlName="ingredientName"
+      ></form-input>
+    </div>
+    <div class="field">
+      <form-input
+        [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_desc' | translate"
+        [placeholderText]="
+          'APPS.YOUR_CHEF.INGREDIENT.introduce_ingredient_desc' | translate
+        "
+        [type]="'text'"
+        formControlName="ingredientDesc"
+      ></form-input>
+    </div>
+    <div class="field">
+      <form-input
+        [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_type' | translate"
+        [placeholderText]="
+          'APPS.YOUR_CHEF.INGREDIENT.introduce_ingredient_type' | translate
+        "
+        [type]="'text'"
+        formControlName="ingredientType"
+      ></form-input>
+    </div>
+  </form>
+</modal>

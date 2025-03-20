@@ -16,7 +16,7 @@ export class ModalService {
     entry.clear();
     this.componentRef = entry.createComponent(ModalComponent);
     this.componentRef.instance.title = options?.title;
-    this.componentRef.instance.size = options?.size;
+
     this.componentRef.instance.closeEvent.subscribe(() => this.closeModal());
     this.componentRef.instance.submitEvent.subscribe(() => this.confirm());
     this.componentSubscriber = new Subject<string>();

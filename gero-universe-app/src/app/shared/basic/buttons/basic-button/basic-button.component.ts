@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './basic-button.component.scss',
 })
 export class BasicButtonComponent {
-  @Input() public text: string = '';
+  @Input() public text?: string = '';
   @Input() public type: string = 'submit';
-  @Input() public color: string = 'white';
+  @Input() public color?: string = 'white';
 }

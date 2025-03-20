@@ -1,15 +1,26 @@
 {
   "BASIC": {
     "test": "test es",
-    "others": "Otros"
+    "others": "Otros",
+    "create": "Crear",
+    "cancel": "Cancelar"
   },
   "APPS": {
     "YOUR_CHEF": {
       "recipe_welcome": "Bienvenido a las recetas",
       "ingredients_welcome": "Bienvenido a los ingedientes",
       "search_recipe": "Buscar una receta",
-      "search_ingredient": "Buscar un ingrediente",
-      "add_ingredient": "Añadir ingrediente",
+      "INGREDIENT": {
+        "search_ingredient": "Buscar un ingrediente",
+        "add_ingredient": "Añadir ingrediente",
+        "create_ingredient": "Crear ingrediente",
+        "ingredient_name": "Nombre del ingrediente",
+        "introduce_ingredient_name": "Introduce el nombre del ingrediente",
+        "ingredient_desc": "Descripción del ingrediente",
+        "introduce_ingredient_desc": "Introduce la descripción del ingrediente",
+        "ingredient_type": "Tipo de ingrediente",
+        "introduce_ingredient_type": "Introduce el tipo de ingrediente"
+      },
       "INGREDIENTS": {
         "veal": "Ternera",
         "potato": "Patata",

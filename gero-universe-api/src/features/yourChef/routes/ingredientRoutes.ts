@@ -21,7 +21,7 @@ ingredientsRoutes.post("/addIngredient", async (req: Request, res: Response) => 
     req.body = { ...req.body, identifier: ingredientId };
     const newIngredient = new Ingredient(req.body);
     await newIngredient.save();
-    res.send(200);
+    res.status(200).send();
   } catch (error: any) {
     if (error.name === "ValidationError") {
       res.status(400).send({ message: error.message });

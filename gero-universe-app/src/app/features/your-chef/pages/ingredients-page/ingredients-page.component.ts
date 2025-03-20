@@ -10,7 +10,6 @@ import { FormInputComponent } from '../../../../shared/inputs/form-input/form-in
 import {
   FormBuilder,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -79,7 +78,11 @@ export class IngredientsPageComponent implements OnInit {
    */
   public closeCreateIngredient() {
     this.openedCreateModal = false;
-    console.log('AAAA');
+    this.createIngredientForm.setValue({
+      ingredientName: '',
+      ingredientDesc: '',
+      ingredientType: '',
+    });
   }
 
   /**
@@ -88,7 +91,6 @@ export class IngredientsPageComponent implements OnInit {
   public async createIngredient(): Promise<void> {
     try {
       if (this.createIngredientForm.valid) {
-        console.log('aa');
         const ingredient: Ingredient = {
           name: this.createIngredientForm.get('ingredientName')?.value,
           description: this.createIngredientForm.get('ingredientDesc')?.value,

@@ -1,5 +1,16 @@
-import mongoose from "mongoose";
 import { geroUniverseYourChefDBConnection } from "../config/geroUniverseYourChefDatabase";
+import mongoose, { Types } from "mongoose";
+
+// Declaration of the ingredient interface
+export interface IIngredient {
+  _id: Types.ObjectId[];
+  name: string;
+  identifier: string;
+  description?: string;
+  type: string;
+  unit: string;
+  icon: string;
+}
 
 // Declaration of ingredient schema
 export const IngredientSchema: mongoose.Schema = new mongoose.Schema({
@@ -22,9 +33,6 @@ export const IngredientSchema: mongoose.Schema = new mongoose.Schema({
   icon: { type: String },
 });
 
-const Ingredient: mongoose.Model<any> = geroUniverseYourChefDBConnection.model(
-  "Ingredient",
-  IngredientSchema
-);
+const Ingredient: mongoose.Model<any> = geroUniverseYourChefDBConnection.model("Ingredient", IngredientSchema);
 
 export default Ingredient;

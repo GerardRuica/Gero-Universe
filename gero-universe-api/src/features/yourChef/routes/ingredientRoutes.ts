@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from "express";
-import Ingredient from "../models/ingredientModel";
+import Ingredient, { IIngredient } from "../models/ingredientModel";
 
 // Routes declaration
 const ingredientsRoutes: Router = express.Router();
@@ -17,9 +17,10 @@ ingredientsRoutes.get("/getIngredients", async (req: Request, res: Response) => 
 // Function to add a new ingredient to DB
 ingredientsRoutes.post("/addIngredient", async (req: Request, res: Response) => {
   try {
-    const ingredientId = req.body.name;
-    req.body = { ...req.body, identifier: ingredientId };
-    const newIngredient = new Ingredient(req.body);
+    let ingredient: IIngredient = req.body;
+    const ingredientId = req.body.name.trim().toLowerCase().replace(/\s+/g, "_");
+    ingredient = { ...ingredient, identifier: ingredientId };
+    const newIngredient = new Ingredient(ingredient);
     await newIngredient.save();
     res.status(200).send();
   } catch (error: any) {

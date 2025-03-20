@@ -26,7 +26,7 @@
   (submitEvent)="createIngredient()"
   (closeEvent)="closeCreateIngredient()"
 >
-  <form>
+  <form [formGroup]="createIngredientForm">
     <div class="field">
       <form-input
         [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_name' | translate"

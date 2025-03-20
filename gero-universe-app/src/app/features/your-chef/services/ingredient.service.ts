@@ -19,6 +19,7 @@ export class IngredientService {
 
   /**
    * Get all ingredients from DB
+   *
    * @returns {Ingredient[]} All ingredients
    */
   public async getAllIngredients(): Promise<Ingredient[]> {
@@ -26,6 +27,27 @@ export class IngredientService {
       return await firstValueFrom(
         this.http.get<Ingredient[]>(
           `${environment.API_URL}/your-chef/ingredients/getIngredients`,
+          {
+            withCredentials: true,
+          }
+        )
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Create ingredient on app
+   *
+   * @param {Ingredient} ingredientData Ingredient data to create an ingredient
+   */
+  public async createIngredient(ingredientData: Ingredient): Promise<void> {
+    try {
+      await firstValueFrom(
+        this.http.post(
+          `${environment.API_URL}/your-chef/ingredients/addIngredient`,
+          ingredientData,
           {
             withCredentials: true,
           }

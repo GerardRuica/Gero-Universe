@@ -78,11 +78,7 @@ export class IngredientsPageComponent implements OnInit {
    */
   public closeCreateIngredient() {
     this.openedCreateModal = false;
-    this.createIngredientForm.setValue({
-      ingredientName: '',
-      ingredientDesc: '',
-      ingredientType: '',
-    });
+    this.createIngredientForm.reset();
   }
 
   /**

@@ -35,8 +35,10 @@ export class FormInputComponent implements ControlValueAccessor {
 
   /** Internal value bound to the input field. */
   public value: string = '';
+
   /** Callback for handling changes in the input value */
   public onChange = (value: string) => {};
+
   /** Callback for handling touch events */
   public onTouched = () => {};
 
@@ -51,7 +53,7 @@ export class FormInputComponent implements ControlValueAccessor {
    * @param value The value to write to the input
    */
   public writeValue(value: string): void {
-    this.value = value;
+    this.value = value ?? '';
   }
 
   /**

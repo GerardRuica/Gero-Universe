@@ -47,7 +47,9 @@
   .search-container {
     width: 500px;
   }
+}
 
+@media (max-width: 900px) {
   .add-button-field {
     margin-top: 50px;
   }

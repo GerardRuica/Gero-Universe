@@ -1,5 +1,5 @@
 @if(open) {
-<div class="modal-overlay" (click)="close()">
+<div class="modal-overlay" (click)="closeModalClickingOverlay ? close() : null">
   <div
     class="modal-container"
     [ngStyle]="{ width: width }"

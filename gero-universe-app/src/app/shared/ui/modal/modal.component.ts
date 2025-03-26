@@ -14,6 +14,7 @@ export class ModalComponent {
   @Input() submitButtonText?: string = '';
   @Input() closeButtonText?: string = '';
   @Input() open: boolean = false;
+  @Input() closeModalClickingOverlay: boolean = false;
 
   @Output() closeEvent = new EventEmitter<string>();
   @Output() submitEvent = new EventEmitter<string>();

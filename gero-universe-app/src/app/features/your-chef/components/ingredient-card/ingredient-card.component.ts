@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Ingredient } from '../../types/yourChefBasicTypes';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 /**
  * Component to make an ingredient card
@@ -23,11 +23,25 @@ export class IngredientCardComponent implements OnInit {
   public ingredientName: string = '';
 
   /**
+   * Initializes all dependencies
+   *
+   * @param {TranslateService} translateService Service to translate
+   */
+  constructor(private translateService: TranslateService) {}
+
+  /**
    * Initialize component
    */
   public ngOnInit(): void {
     this.setBackgroundColor();
-    this.ingredientName = this.INGREDIENT_I18_PATH + this.ingredient.identifier;
+    const ingredientKey = this.INGREDIENT_I18_PATH + this.ingredient.identifier;
+    this.translateService.get(ingredientKey).subscribe((translatedValue) => {
+      if (translatedValue !== ingredientKey) {
+        this.ingredientName = translatedValue;
+      } else {
+        this.ingredientName = this.ingredient.name || '';
+      }
+    });
   }
 
   /**

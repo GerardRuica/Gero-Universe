@@ -25,3 +25,8 @@ input:focus {
 input:hover {
   border-color: black;
 }
+
+.required {
+  color: red; /* Cambia el color a rojo */
+  font-weight: bold; /* Puedes agregar más estilos si lo deseas */
+}

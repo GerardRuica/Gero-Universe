@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, forwardRef, Input, Provider } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -20,7 +21,7 @@ export const CUSTOM_CONTROL_VALUE_ACCESSOR: Provider = {
  */
 @Component({
   selector: 'form-input',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './form-input.component.html',
   styleUrl: './form-input.component.scss',
   providers: [CUSTOM_CONTROL_VALUE_ACCESSOR],
@@ -32,16 +33,24 @@ export class FormInputComponent implements ControlValueAccessor {
   @Input() public placeholderText: string = '';
   /** Input type */
   @Input() public type: string = 'text';
+  /** Indicates if input is required or not */
+  @Input() public required: boolean = false;
 
   /** Internal value bound to the input field. */
   public value: string = '';
+  /** Boolean to know if input has touched or not */
+  public touched: boolean = false;
 
   /** Callback for handling changes in the input value */
   public onChange = (value: string) => {};
 
   /** Callback for handling touch events */
-  public onTouched = () => {};
+  public onTouched = () => {
+    console.log('aa');
+    this.touched = true;
+  };
 
+  /** Callback for handling change events */
   public onInputChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     this.value = inputElement.value;

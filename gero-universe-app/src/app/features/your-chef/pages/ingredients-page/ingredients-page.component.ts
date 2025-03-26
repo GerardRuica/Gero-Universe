@@ -104,6 +104,7 @@ export class IngredientsPageComponent implements OnInit {
         this.ingredients = await this.ingredientService.getAllIngredients();
 
         this.closeCreateIngredient();
+      } else {
       }
     } catch (error: any) {
       if (error.error.code === 'DUPLICATE_KEY') {

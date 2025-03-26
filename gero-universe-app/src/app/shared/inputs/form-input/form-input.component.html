@@ -1,13 +1,19 @@
 <div class="input-container">
-  <label for="inputField">{{ labelText }}</label>
+  <label for="inputField"
+    >{{ labelText }}
+    @if(required) {
+    <span class="required">*</span>
+    }
+  </label>
   <input
     [type]="type"
-    id="inputField"
-    name="inputField"
     [placeholder]="placeholderText"
-    required
     [value]="value"
     (input)="onInputChange($event)"
     (blur)="onTouched()"
+    (focus)="onTouched()"
+    id="inputField"
+    name="inputField"
+    required
   />
 </div>

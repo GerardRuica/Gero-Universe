@@ -51,7 +51,8 @@ export const ERRORS = {
   MONGO: {
     DUPLICATE_KEY: {
       status: 400,
-      code: "11000",
+      code: "DUPLICATE_KEY",
+      code_number: "11000",
       message: "Duplicate key on:",
     },
   },

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchInputComponent } from '../../../../shared/inputs/search-input/search-input.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { IngredientCardComponent } from '../../components/ingredient-card/ingredient-card.component';
 import { Ingredient } from '../../types/yourChefBasicTypes';
 import { IngredientService } from '../../services/ingredient.service';
@@ -13,6 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { InputErrorComponent } from '../../../../shared/inputs/input-error/input-error.component';
 
 /**
  * Ingredients page where all ingredients are showed
@@ -27,6 +28,7 @@ import {
     ModalComponent,
     FormInputComponent,
     ReactiveFormsModule,
+    InputErrorComponent,
   ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',
@@ -38,15 +40,19 @@ export class IngredientsPageComponent implements OnInit {
   public openedCreateModal: boolean = false;
   /** Form of create ingredient modal */
   public createIngredientForm!: FormGroup;
+  public ingredientNameError: string = '';
 
   /**
    * Constructor to import all dependencies
    *
-   * @param {IngredientService} ingredientService
+   * @param {IngredientService} ingredientService Service to get and create ingredients
+   * @param {FormBuilder} formBuilder Service to manage form
+   * @param {TranslateService} translateService Service to translate
    */
   constructor(
     private ingredientService: IngredientService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private translateService: TranslateService
   ) {}
 
   /**
@@ -78,6 +84,7 @@ export class IngredientsPageComponent implements OnInit {
    */
   public closeCreateIngredient() {
     this.openedCreateModal = false;
+    this.ingredientNameError = '';
     this.createIngredientForm.reset();
   }
 
@@ -94,9 +101,16 @@ export class IngredientsPageComponent implements OnInit {
         };
 
         await this.ingredientService.createIngredient(ingredient);
+        this.ingredients = await this.ingredientService.getAllIngredients();
+
         this.closeCreateIngredient();
       }
-    } catch (error) {
+    } catch (error: any) {
+      if (error.error.code === 'DUPLICATE_KEY') {
+        this.ingredientNameError = this.translateService.instant(
+          'APPS.YOUR_CHEF.INGREDIENT.error_existing_ingredient'
+        );
+      }
       throw error;
     }
   }

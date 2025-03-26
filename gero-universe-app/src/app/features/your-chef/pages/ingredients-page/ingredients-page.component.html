@@ -37,6 +37,10 @@
         [type]="'text'"
         formControlName="ingredientName"
       ></form-input>
+      <input-error
+        [errorMsg]="ingredientNameError"
+        [showError]="true"
+      ></input-error>
     </div>
     <div class="field">
       <form-input

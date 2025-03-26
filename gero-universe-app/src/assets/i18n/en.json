@@ -19,7 +19,8 @@
         "ingredient_desc": "Ingredient description",
         "introduce_ingredient_desc": "Introduce ingredient description",
         "ingredient_type": "Ingredient type",
-        "introduce_ingredient_type": "Introduce ingredient type"
+        "introduce_ingredient_type": "Introduce ingredient type",
+        "error_existing_ingredient": "An ingredient with this name already exists."
       },
       "INGREDIENTS": {
         "veal": "Veal",

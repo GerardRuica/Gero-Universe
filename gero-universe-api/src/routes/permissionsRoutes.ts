@@ -11,10 +11,7 @@ const permissionRoutes: Router = express.Router();
 // Function to create a permission
 permissionRoutes.post(
   "/createPermission",
-  checkPermission([
-    PERMISSIONS.PERMISSIONS.permissions_w,
-    PERMISSIONS.PERMISSIONS.permissions_rw,
-  ]),
+  checkPermission([PERMISSIONS.PERMISSIONS.permissions_w, PERMISSIONS.PERMISSIONS.permissions_rw]),
   async (req: Request, res: Response): Promise<void> => {
     try {
       const introducedPermission: IPermission = req.body;
@@ -34,15 +31,10 @@ permissionRoutes.delete(
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { name }: Partial<IPermission> = req.params;
-      const deletedPermission: Partial<IPermission> =
-        (await Permission.findOneAndDelete({ name })) as IPermission;
+      const deletedPermission: Partial<IPermission> = (await Permission.findOneAndDelete({ name })) as IPermission;
 
       if (!deletedPermission) {
-        throw createError(
-          ERRORS.PERMISSIONS.NOT_FOUND.status,
-          ERRORS.PERMISSIONS.NOT_FOUND.message,
-          { code: ERRORS.PERMISSIONS.NOT_FOUND.code }
-        );
+        throw createError(ERRORS.PERMISSIONS.NOT_FOUND.status, ERRORS.PERMISSIONS.NOT_FOUND.message, { code: ERRORS.PERMISSIONS.NOT_FOUND.code });
       }
 
       res.status(200).json({ message: "Permission deleted successfully" });
@@ -59,23 +51,14 @@ permissionRoutes.delete(
  * @param {Response} res The Express response object
  * @param {String} defaultErrorMessage Default error message of the error
  */
-function handleError(
-  error: any,
-  res: Response,
-  defaultErrorMessage: String
-): void {
-  const errorCodes: string[] = [
-    ERRORS.PERMISSIONS.NOT_FOUND.code,
-    ERRORS.MONGO.DUPLICATE_KEY.code,
-  ];
+function handleError(error: any, res: Response, defaultErrorMessage: String): void {
+  const errorCodes: string[] = [ERRORS.PERMISSIONS.NOT_FOUND.code, ERRORS.MONGO.DUPLICATE_KEY.code_number];
 
   const errorCode: string = String(error.code);
   if (errorCodes.includes(errorCode)) {
-    if (errorCode === ERRORS.MONGO.DUPLICATE_KEY.code) {
+    if (errorCode === ERRORS.MONGO.DUPLICATE_KEY.code_number) {
       res.status(ERRORS.MONGO.DUPLICATE_KEY.status).send({
-        message: `${ERRORS.MONGO.DUPLICATE_KEY.message} ${JSON.stringify(
-          error.keyValue
-        )}`,
+        message: `${ERRORS.MONGO.DUPLICATE_KEY.message} ${JSON.stringify(error.keyValue)}`,
       });
     } else {
       res.status(error.status).send({ message: error.message });

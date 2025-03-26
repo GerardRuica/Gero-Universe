@@ -1,43 +1,17 @@
 import express, { Request, Response, Router } from "express";
-import Ingredient, { IIngredient } from "../models/ingredientModel";
+import IngredientController from "../controllers/ingredientController";
 
-// Routes declaration
+// Ingredient controller to manager ingredient actions
+const ingredientController: IngredientController = new IngredientController();
+
+// Declaration of the ingredients routes
 const ingredientsRoutes: Router = express.Router();
 
-// Function to get an ingredient
-ingredientsRoutes.get("/getIngredients", async (req: Request, res: Response) => {
-  try {
-    const ingredients = await Ingredient.find().select("-__v");
-    res.status(200).json(ingredients);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching ingredients" });
-  }
-});
-
-// Function to add a new ingredient to DB
-ingredientsRoutes.post("/addIngredient", async (req: Request, res: Response) => {
-  try {
-    let ingredient: IIngredient = req.body;
-    const ingredientId = req.body.name.trim().toLowerCase().replace(/\s+/g, "_");
-    ingredient = { ...ingredient, identifier: ingredientId };
-    const newIngredient = new Ingredient(ingredient);
-    await newIngredient.save();
-    res.status(200).send();
-  } catch (error: any) {
-    if (error.name === "ValidationError") {
-      res.status(400).send({ message: error.message });
-    } else if (error.name === "MongoServerError" && error.code === 11000) {
-      res.status(400).send({
-        message: `Error: duplicate key on ${JSON.stringify(error.keyValue)}`,
-      });
-    } else {
-      res.status(500).send({ message: "Error saving ingredient" });
-    }
-  }
-});
-
+// Endpoint to get all ingredients from DB
+ingredientsRoutes.get("/getIngredients", (req, res) => ingredientController.getAllIngredients(req, res));
+// Endpoint ot create an ingredient
+ingredientsRoutes.post("/addIngredient", (req, res) => ingredientController.createIngredient(req, res));
 ingredientsRoutes.put("/:id", async (req: Request, res: Response) => {});
-
 ingredientsRoutes.delete("/:id", (req: Request, res: Response) => {});
 
 export default ingredientsRoutes;

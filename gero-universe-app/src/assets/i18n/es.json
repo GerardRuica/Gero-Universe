@@ -19,7 +19,8 @@
         "ingredient_desc": "Descripción del ingrediente",
         "introduce_ingredient_desc": "Introduce la descripción del ingrediente",
         "ingredient_type": "Tipo de ingrediente",
-        "introduce_ingredient_type": "Introduce el tipo de ingrediente"
+        "introduce_ingredient_type": "Introduce el tipo de ingrediente",
+        "error_existing_ingredient": "Ya existe un ingrediente con este nombre"
       },
       "INGREDIENTS": {
         "veal": "Ternera",

@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { InputErrorComponent } from '../../../../shared/inputs/input-error/input-error.component';
-import { BasicSelectComponent } from '../../../../shared/basic/selects/basic-select/basic-select.component';
+import { FormSelectComponent } from '../../../../shared/basic/selects/form-select/form-select.component';
 import { SelectOption } from '../../../../types/componentsTypes';
 import { INGREDIENT_TYPES } from '../../constants/ingredientsConstants';
 
@@ -32,7 +32,7 @@ import { INGREDIENT_TYPES } from '../../constants/ingredientsConstants';
     FormInputComponent,
     ReactiveFormsModule,
     InputErrorComponent,
-    BasicSelectComponent,
+    FormSelectComponent,
   ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',
@@ -67,11 +67,7 @@ export class IngredientsPageComponent implements OnInit {
    */
   public async ngOnInit(): Promise<void> {
     try {
-      this.createIngredientForm = this.formBuilder.group({
-        ingredientName: ['', [Validators.required]],
-        ingredientDesc: [''],
-        ingredientType: [null, Validators.required],
-      });
+      this.initializeForm();
 
       this.ingredients = await this.ingredientService.getAllIngredients();
     } catch (error) {
@@ -92,7 +88,7 @@ export class IngredientsPageComponent implements OnInit {
   public closeCreateIngredient() {
     this.openedCreateModal = false;
     this.ingredientNameError = '';
-    this.createIngredientForm.reset();
+    this.initializeForm();
   }
 
   /**
@@ -131,5 +127,13 @@ export class IngredientsPageComponent implements OnInit {
       }
       throw error;
     }
+  }
+
+  private initializeForm(): void {
+    this.createIngredientForm = this.formBuilder.group({
+      ingredientName: ['', [Validators.required]],
+      ingredientDesc: [''],
+      ingredientType: ['', Validators.required],
+    });
   }
 }

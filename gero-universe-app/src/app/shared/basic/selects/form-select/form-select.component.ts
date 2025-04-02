@@ -13,18 +13,18 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 /** Provider to do form select */
 const CUSTOM_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => BasicSelectComponent),
+  useExisting: forwardRef(() => FormSelectComponent),
   multi: true,
 };
 
 @Component({
   selector: 'basic-select',
   imports: [TranslateModule],
-  templateUrl: './basic-select.component.html',
-  styleUrl: './basic-select.component.scss',
+  templateUrl: './form-select.component.html',
+  styleUrl: './form-select.component.scss',
   providers: [CUSTOM_CONTROL_VALUE_ACCESSOR],
 })
-export class BasicSelectComponent implements ControlValueAccessor {
+export class FormSelectComponent implements ControlValueAccessor {
   /** Label text of the input */
   @Input() public labelText: string = '';
   /** List with value and labels of the select  */

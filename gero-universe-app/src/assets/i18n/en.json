@@ -3,7 +3,8 @@
     "test": "test en",
     "others": "Others",
     "create": "Create",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "select_option": "Select an option"
   },
   "APPS": {
     "YOUR_CHEF": {

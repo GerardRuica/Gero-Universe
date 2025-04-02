@@ -70,7 +70,7 @@ export class IngredientsPageComponent implements OnInit {
       this.createIngredientForm = this.formBuilder.group({
         ingredientName: ['', [Validators.required]],
         ingredientDesc: [''],
-        ingredientType: ['', Validators.required],
+        ingredientType: [null, Validators.required],
       });
 
       this.ingredients = await this.ingredientService.getAllIngredients();
@@ -100,6 +100,16 @@ export class IngredientsPageComponent implements OnInit {
    */
   public async createIngredient(): Promise<void> {
     try {
+      console.log(
+        Object.keys(this.createIngredientForm.controls).filter(
+          (key) =>
+            this.createIngredientForm.controls[key].value === '' ||
+            this.createIngredientForm.controls[key].value === null
+        )
+      );
+
+      console.log(this.createIngredientForm.get('ingredientType')?.value);
+
       if (this.createIngredientForm.valid) {
         const ingredient: Ingredient = {
           name: this.createIngredientForm.get('ingredientName')?.value,

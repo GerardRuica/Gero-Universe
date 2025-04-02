@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 
 /** Provider to do form input */
-export const CUSTOM_CONTROL_VALUE_ACCESSOR: Provider = {
+const CUSTOM_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => FormInputComponent),
   multi: true,
@@ -41,12 +41,8 @@ export class FormInputComponent implements ControlValueAccessor {
   /** Boolean to know if input has touched or not */
   public touched: boolean = false;
 
-  /** Callback for handling changes in the input value */
   public onChange = (value: string) => {};
-
-  /** Callback for handling touch events */
   public onTouched = () => {
-    console.log('aa');
     this.touched = true;
   };
 

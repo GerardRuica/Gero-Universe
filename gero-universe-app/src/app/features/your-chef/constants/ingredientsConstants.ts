@@ -2,7 +2,6 @@ import { SelectOption } from '../../../types/componentsTypes';
 
 /** COnstant with all ingredients types */
 export const INGREDIENT_TYPES: SelectOption[] = [
-  { value: 'default', label: '- - -' },
   {
     value: 'meat',
     label: 'APPS.YOUR_CHEF.INGREDIENTS_TYPES.meat',

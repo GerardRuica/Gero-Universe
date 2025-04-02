@@ -11,6 +11,9 @@
     (change)="onValueChange($event)"
   >
     @for (option of options; track option.value) {
+    <option value="" disabled selected hidden>
+      {{ "BASIC.select_option" | translate }}
+    </option>
     <option [value]="option.value">{{ option.label | translate }}</option>
     }
   </select>

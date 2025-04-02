@@ -1,0 +1,17 @@
+<div class="select-container">
+  <label for="selectField">
+    {{ labelText }}
+    @if(required) {
+    <span class="required">*</span>
+    }
+  </label>
+  <select
+    formControl="control"
+    [value]="selectedValue"
+    (change)="onValueChange($event)"
+  >
+    @for (option of options; track option.value) {
+    <option [value]="option.value">{{ option.label | translate }}</option>
+    }
+  </select>
+</div>

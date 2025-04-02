@@ -26,6 +26,20 @@
         "veal": "Veal",
         "potato": "Potato",
         "default_ingredient_id": "Default"
+      },
+      "INGREDIENTS_TYPES": {
+        "meat": "Meat",
+        "fish": "Fish",
+        "vegetable": "Vegetable",
+        "specie": "Specie",
+        "legume": "Legume",
+        "oil": "Oil",
+        "fat": "Fat",
+        "mushroom": "Mushroom",
+        "fruit": "Fruit",
+        "cereal": "Cereal",
+        "seafood": "Seafood",
+        "liquid": "Liquid"
       }
     }
   },

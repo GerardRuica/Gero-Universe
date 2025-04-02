@@ -14,6 +14,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { InputErrorComponent } from '../../../../shared/inputs/input-error/input-error.component';
+import { BasicSelectComponent } from '../../../../shared/basic/selects/basic-select/basic-select.component';
+import { SelectOption } from '../../../../types/componentsTypes';
+import { INGREDIENT_TYPES } from '../../constants/ingredientsConstants';
 
 /**
  * Ingredients page where all ingredients are showed
@@ -29,6 +32,7 @@ import { InputErrorComponent } from '../../../../shared/inputs/input-error/input
     FormInputComponent,
     ReactiveFormsModule,
     InputErrorComponent,
+    BasicSelectComponent,
   ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',
@@ -40,6 +44,9 @@ export class IngredientsPageComponent implements OnInit {
   public openedCreateModal: boolean = false;
   /** Form of create ingredient modal */
   public createIngredientForm!: FormGroup;
+  /** Options of the select of the modal */
+  public ingredientTypes: SelectOption[] = INGREDIENT_TYPES;
+
   public ingredientNameError: string = '';
 
   /**

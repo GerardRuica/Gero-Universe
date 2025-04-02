@@ -64,5 +64,12 @@
         formControlName="ingredientType"
       ></form-input>
     </div>
+    <div class="field">
+      <basic-select
+        [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_type' | translate"
+        [options]="ingredientTypes"
+        [required]="true"
+      ></basic-select>
+    </div>
   </form>
 </modal>

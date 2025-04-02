@@ -26,6 +26,20 @@
         "veal": "Ternera",
         "potato": "Patata",
         "default_ingredient_id": "Default"
+      },
+      "INGREDIENTS_TYPES": {
+        "meat": "Carne",
+        "fish": "Pescado",
+        "vegetable": "Verdura",
+        "specie": "Especia",
+        "legume": "Legumbre",
+        "oil": "Aceite",
+        "fat": "Grasa",
+        "mushroom": "Seta",
+        "fruit": "Fruta",
+        "cereal": "Cereal",
+        "seafood": "Marisco",
+        "liquid": "Líquido"
       }
     }
   },

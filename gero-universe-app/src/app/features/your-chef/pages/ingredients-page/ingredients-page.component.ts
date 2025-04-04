@@ -5,16 +5,7 @@ import { IngredientCardComponent } from '../../components/ingredient-card/ingred
 import { Ingredient } from '../../types/yourChefBasicTypes';
 import { IngredientService } from '../../services/ingredient.service';
 import { BasicButtonComponent } from '../../../../shared/basic/buttons/basic-button/basic-button.component';
-import { ModalComponent } from '../../../../shared/ui/modal/modal.component';
-import { FormInputComponent } from '../../../../shared/inputs/form-input/form-input.component';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { InputErrorComponent } from '../../../../shared/inputs/input-error/input-error.component';
-import { FormSelectComponent } from '../../../../shared/basic/selects/form-select/form-select.component';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SelectOption } from '../../../../types/componentsTypes';
 import { INGREDIENT_TYPES } from '../../constants/ingredientsConstants';
 import { CreateIngredientModalComponent } from '../../components/create-ingredient-modal/create-ingredient-modal.component';

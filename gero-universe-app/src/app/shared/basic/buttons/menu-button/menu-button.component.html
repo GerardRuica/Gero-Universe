@@ -1,0 +1,10 @@
+<div class="menu-wrapper">
+  <button class="icon-button" (click)="toggleMenu()">&#8942;</button>
+
+  @if(isMenuOpen) {
+  <div class="menu">
+    <button (click)="onEdit()">Editar</button>
+    <button (click)="onDelete()">Eliminar</button>
+  </div>
+  }
+</div>

@@ -1,12 +1,17 @@
 <div class="ingredient-card">
   <div class="ingredient-icon" [style.background-color]="backgroundColor">
-    <svg>
-      <use
-        [attr.xlink:href]="
-          'assets/icons/ingredients-icons.svg#' + ingredient.icon
-        "
-      ></use>
-    </svg>
+    <div class="svg-icon">
+      <svg>
+        <use
+          [attr.xlink:href]="
+            'assets/icons/ingredients-icons.svg#' + ingredient.icon
+          "
+        ></use>
+      </svg>
+    </div>
+    <div class="menu">
+      <menu-button></menu-button>
+    </div>
   </div>
   <div class="ingredient-name">
     {{ ingredientName }}

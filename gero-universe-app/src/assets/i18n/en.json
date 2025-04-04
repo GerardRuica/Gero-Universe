@@ -4,7 +4,8 @@
     "others": "Others",
     "create": "Create",
     "cancel": "Cancel",
-    "select_option": "Select an option"
+    "select_option": "Select an option",
+    "delete": "Delete"
   },
   "APPS": {
     "YOUR_CHEF": {
@@ -21,7 +22,9 @@
         "introduce_ingredient_desc": "Introduce ingredient description",
         "ingredient_type": "Ingredient type",
         "introduce_ingredient_type": "Introduce ingredient type",
-        "error_existing_ingredient": "An ingredient with this name already exists."
+        "error_existing_ingredient": "An ingredient with this name already exists.",
+        "delete_ingredient": "Delete ingredient",
+        "delete_ingredient_desc": "Are you sure you want to delete the ingredient?"
       },
       "INGREDIENTS": {
         "veal": "Veal",

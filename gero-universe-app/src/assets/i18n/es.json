@@ -4,7 +4,8 @@
     "others": "Otros",
     "create": "Crear",
     "cancel": "Cancelar",
-    "select_option": "Selecciona una opción"
+    "select_option": "Selecciona una opción",
+    "delete": "Eliminar"
   },
   "APPS": {
     "YOUR_CHEF": {
@@ -21,7 +22,9 @@
         "introduce_ingredient_desc": "Introduce la descripción del ingrediente",
         "ingredient_type": "Tipo de ingrediente",
         "introduce_ingredient_type": "Introduce el tipo de ingrediente",
-        "error_existing_ingredient": "Ya existe un ingrediente con este nombre"
+        "error_existing_ingredient": "Ya existe un ingrediente con este nombre",
+        "delete_ingredient": "Eliminar ingrediente",
+        "delete_ingredient_desc": "¿Estás seguro de que quieres eliminar el ingrediente?"
       },
       "INGREDIENTS": {
         "veal": "Ternera",

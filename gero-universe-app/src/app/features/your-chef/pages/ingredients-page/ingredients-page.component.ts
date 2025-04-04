@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchInputComponent } from '../../../../shared/inputs/search-input/search-input.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { IngredientCardComponent } from '../../components/ingredient-card/ingredient-card.component';
 import { Ingredient } from '../../types/yourChefBasicTypes';
 import { IngredientService } from '../../services/ingredient.service';
 import { BasicButtonComponent } from '../../../../shared/basic/buttons/basic-button/basic-button.component';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SelectOption } from '../../../../types/componentsTypes';
-import { INGREDIENT_TYPES } from '../../constants/ingredientsConstants';
 import { CreateIngredientModalComponent } from '../../components/create-ingredient-modal/create-ingredient-modal.component';
+import { BasicDialogComponent } from '../../../../shared/ui/basic-dialog/basic-dialog.component';
 
 /**
  * Ingredients page where all ingredients are showed
@@ -20,8 +18,8 @@ import { CreateIngredientModalComponent } from '../../components/create-ingredie
     TranslateModule,
     IngredientCardComponent,
     BasicButtonComponent,
-    ReactiveFormsModule,
     CreateIngredientModalComponent,
+    BasicDialogComponent,
   ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',
@@ -35,7 +33,7 @@ export class IngredientsPageComponent implements OnInit {
   /**
    * Constructor to import all dependencies
    *
-   * @param {TranslateService} translateService Service to translate
+   * @param {IngredientService} ingredientService Service to get all ingredients
    */
   constructor(private ingredientService: IngredientService) {}
 

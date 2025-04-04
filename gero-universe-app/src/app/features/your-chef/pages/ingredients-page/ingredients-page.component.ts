@@ -17,6 +17,7 @@ import { InputErrorComponent } from '../../../../shared/inputs/input-error/input
 import { FormSelectComponent } from '../../../../shared/basic/selects/form-select/form-select.component';
 import { SelectOption } from '../../../../types/componentsTypes';
 import { INGREDIENT_TYPES } from '../../constants/ingredientsConstants';
+import { CreateIngredientModalComponent } from '../../components/create-ingredient-modal/create-ingredient-modal.component';
 
 /**
  * Ingredients page where all ingredients are showed
@@ -28,11 +29,8 @@ import { INGREDIENT_TYPES } from '../../constants/ingredientsConstants';
     TranslateModule,
     IngredientCardComponent,
     BasicButtonComponent,
-    ModalComponent,
-    FormInputComponent,
     ReactiveFormsModule,
-    InputErrorComponent,
-    FormSelectComponent,
+    CreateIngredientModalComponent,
   ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',
@@ -56,19 +54,13 @@ export class IngredientsPageComponent implements OnInit {
    * @param {FormBuilder} formBuilder Service to manage form
    * @param {TranslateService} translateService Service to translate
    */
-  constructor(
-    private ingredientService: IngredientService,
-    private formBuilder: FormBuilder,
-    private translateService: TranslateService
-  ) {}
+  constructor(private ingredientService: IngredientService) {}
 
   /**
    * Initializes component
    */
   public async ngOnInit(): Promise<void> {
     try {
-      this.initializeForm();
-
       this.ingredients = await this.ingredientService.getAllIngredients();
     } catch (error) {
       throw error;
@@ -82,58 +74,16 @@ export class IngredientsPageComponent implements OnInit {
     this.openedCreateModal = !this.openedCreateModal;
   }
 
-  /**
-   * Close create ingredient modal
-   */
-  public closeCreateIngredient() {
-    this.openedCreateModal = false;
-    this.ingredientNameError = '';
-    this.initializeForm();
-  }
-
-  /**
-   * Create an ingredient with data of the form of the create ingredient modal
-   */
-  public async createIngredient(): Promise<void> {
+  /** Update ingredients */
+  public async updateIngredients(createdIngredient: boolean): Promise<void> {
     try {
-      console.log(
-        Object.keys(this.createIngredientForm.controls).filter(
-          (key) =>
-            this.createIngredientForm.controls[key].value === '' ||
-            this.createIngredientForm.controls[key].value === null
-        )
-      );
-
-      console.log(this.createIngredientForm.get('ingredientType')?.value);
-
-      if (this.createIngredientForm.valid) {
-        const ingredient: Ingredient = {
-          name: this.createIngredientForm.get('ingredientName')?.value,
-          description: this.createIngredientForm.get('ingredientDesc')?.value,
-          type: this.createIngredientForm.get('ingredientType')?.value,
-        };
-
-        await this.ingredientService.createIngredient(ingredient);
+      if (createdIngredient) {
         this.ingredients = await this.ingredientService.getAllIngredients();
+      }
 
-        this.closeCreateIngredient();
-      } else {
-      }
-    } catch (error: any) {
-      if (error.error.code === 'DUPLICATE_KEY') {
-        this.ingredientNameError = this.translateService.instant(
-          'APPS.YOUR_CHEF.INGREDIENT.error_existing_ingredient'
-        );
-      }
+      this.openedCreateModal = false;
+    } catch (error) {
       throw error;
     }
-  }
-
-  private initializeForm(): void {
-    this.createIngredientForm = this.formBuilder.group({
-      ingredientName: ['', [Validators.required]],
-      ingredientDesc: [''],
-      ingredientType: ['', Validators.required],
-    });
   }
 }

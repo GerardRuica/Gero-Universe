@@ -1,0 +1,45 @@
+<modal
+  [open]="openedCreateModal"
+  [width]="'325px'"
+  [title]="'APPS.YOUR_CHEF.INGREDIENT.create_ingredient' | translate"
+  [submitButtonText]="'BASIC.create' | translate"
+  [closeButtonText]="'BASIC.cancel' | translate"
+  (submitEvent)="createIngredient()"
+  (closeEvent)="closeCreateIngredient()"
+>
+  <form [formGroup]="createIngredientForm">
+    <div class="field">
+      <form-input
+        [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_name' | translate"
+        [placeholderText]="
+          'APPS.YOUR_CHEF.INGREDIENT.introduce_ingredient_name' | translate
+        "
+        [type]="'text'"
+        [required]="true"
+        formControlName="ingredientName"
+      ></form-input>
+      <input-error
+        [errorMsg]="ingredientNameError"
+        [showError]="true"
+      ></input-error>
+    </div>
+    <div class="field">
+      <form-input
+        [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_desc' | translate"
+        [placeholderText]="
+          'APPS.YOUR_CHEF.INGREDIENT.introduce_ingredient_desc' | translate
+        "
+        [type]="'text'"
+        formControlName="ingredientDesc"
+      ></form-input>
+    </div>
+    <div class="field">
+      <basic-select
+        [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_type' | translate"
+        [options]="ingredientTypes"
+        [required]="true"
+        formControlName="ingredientType"
+      ></basic-select>
+    </div>
+  </form>
+</modal>

@@ -31,12 +31,6 @@ export class IngredientsPageComponent implements OnInit {
   public ingredients: Ingredient[] = [];
   /** Boolean indicating if create ingredient modal is opened or closed */
   public openedCreateModal: boolean = false;
-  /** Form of create ingredient modal */
-  public createIngredientForm!: FormGroup;
-  /** Options of the select of the modal */
-  public ingredientTypes: SelectOption[] = INGREDIENT_TYPES;
-
-  public ingredientNameError: string = '';
 
   /**
    * Constructor to import all dependencies

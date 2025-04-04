@@ -1,20 +1,21 @@
 @if(opened) {
 <div class="dialog-overlay" (click)="close()">
   <div class="dialog-container">
-    <div class="dialog-title">
-      <h2>{{ title }}</h2>
-    </div>
-    <div class="dialog-image">
-      <svg [ngStyle]="{ fill: iconColor }">
-        <use
-          [attr.xlink:href]="'assets/icons/dialog-icons.svg#' + dialogIcon"
-        ></use>
-      </svg>
+    <div class="dialog-header">
+      <div class="dialog-image">
+        <svg [ngStyle]="{ fill: iconColor }">
+          <use
+            [attr.xlink:href]="'assets/icons/dialog-icons.svg#' + dialogIcon"
+          ></use>
+        </svg>
+      </div>
+      <div class="dialog-title">
+        <h3>{{ title }}</h3>
+      </div>
     </div>
     <div class="dialog-description">
       {{ description }}
     </div>
-    <hr />
     <div class="dialog-buttons">
       <basic-button
         [color]="closeButtonColor"

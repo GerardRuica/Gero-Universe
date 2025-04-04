@@ -4,7 +4,8 @@ hr {
   background-color: #313131;
 }
 
-h2 {
+h2,
+h3 {
   margin: 0;
 }
 
@@ -38,19 +39,20 @@ svg {
   border-radius: 8px;
   width: 300px;
 
-  .dialog-image {
+  .dialog-header {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    margin: 20px;
-  }
 
-  .dialog-title {
-    height: 30px;
+    .dialog-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+    }
   }
 
   .dialog-description {
-    text-align: center;
     margin: 30px 0 30px 0;
   }
 
@@ -60,9 +62,5 @@ svg {
     justify-content: flex-end;
     gap: 10px;
     width: 100%;
-
-    basic-button {
-      width: 100px;
-    }
   }
 }

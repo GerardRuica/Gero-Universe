@@ -47,9 +47,9 @@ export class BasicDialogComponent implements OnInit {
         this.dialogIcon = 'info';
         break;
       case 'delete':
-        this.iconColor = 'red';
+        this.iconColor = '#E24648';
         this.dialogIcon = 'trash';
-        this.submitButtonColor = 'red';
+        this.submitButtonColor = '#E24648';
         this.closeButtonColor = 'grey';
         this.translateService
           .get(['BASIC.delete', 'BASIC.cancel'])

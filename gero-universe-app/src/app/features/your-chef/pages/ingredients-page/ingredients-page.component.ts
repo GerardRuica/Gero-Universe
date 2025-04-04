@@ -41,8 +41,6 @@ export class IngredientsPageComponent implements OnInit {
   /**
    * Constructor to import all dependencies
    *
-   * @param {IngredientService} ingredientService Service to get and create ingredients
-   * @param {FormBuilder} formBuilder Service to manage form
    * @param {TranslateService} translateService Service to translate
    */
   constructor(private ingredientService: IngredientService) {}

@@ -1,4 +1,18 @@
 <menu-button>
-  <menu-sub-button [text]="'Editar'" (click)="onEdit()"></menu-sub-button>
-  <menu-sub-button [text]="'Eliminar'" (click)="onEdit()"></menu-sub-button>
+  <menu-sub-button
+    [text]="'BASIC.edit' | translate"
+    (click)="openEdit()"
+  ></menu-sub-button>
+  <menu-sub-button
+    [text]="'BASIC.delete' | translate"
+    (click)="toggleDeleteDialog($event)"
+  ></menu-sub-button>
 </menu-button>
+<basic-dialog
+  [opened]="deleteDialogOpened"
+  [type]="'delete'"
+  [title]="'APPS.YOUR_CHEF.INGREDIENT.delete_ingredient' | translate"
+  [description]="'APPS.YOUR_CHEF.INGREDIENT.delete_ingredient_desc' | translate"
+  (submitEvent)="deleteIngredient()"
+  (closeEvent)="toggleDeleteDialog($event)"
+></basic-dialog>

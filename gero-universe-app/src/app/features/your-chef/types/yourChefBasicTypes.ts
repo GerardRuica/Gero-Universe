@@ -6,4 +6,5 @@ export interface Ingredient {
   unit?: string;
   icon?: string;
   identifier?: string;
+  _id?: string;
 }

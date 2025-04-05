@@ -45,6 +45,26 @@ class IngredientController {
       res.status(500).json({ message: "Error fetching ingredients" });
     }
   }
+
+  /**
+   * Function to delete an ingredient by id
+   *
+   * @param req Express request with ingredient id
+   * @param res Express response
+   */
+  public async deleteIngredientById(req: Request, res: Response): Promise<void> {
+    try {
+      const ingredientId: string = req.params.id;
+      const deletedIngredient = await Ingredient.findByIdAndDelete(ingredientId);
+      if (!deletedIngredient) {
+        res.status(404).json({ message: "Ingredient not found" });
+      } else {
+        res.status(200).json({ message: "Ingredient deleted successfully" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error when delete an ingredient" });
+    }
+  }
 }
 
 export default IngredientController;

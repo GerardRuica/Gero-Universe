@@ -22,7 +22,10 @@
 </div>
 <div class="card-container">
   @for (ingredient of ingredients; track ingredient) {
-  <ingredient-card [ingredient]="ingredient"></ingredient-card>
+  <ingredient-card
+    [ingredient]="ingredient"
+    (onUpdateIngredients)="updateIngredients($event)"
+  ></ingredient-card>
   }
 </div>
 <create-ingredient-modal

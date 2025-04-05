@@ -57,4 +57,24 @@ export class IngredientService {
       throw error;
     }
   }
+
+  /**
+   * Delete an ingredient by id
+   *
+   * @param {string} ingredientId Ingredient id
+   */
+  public async deleteIngredientById(ingredientId?: string) {
+    try {
+      await firstValueFrom(
+        this.http.delete(
+          `${environment.API_URL}/your-chef/ingredients/${ingredientId}`,
+          {
+            withCredentials: true,
+          }
+        )
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
 }

@@ -5,7 +5,8 @@
     "create": "Create",
     "cancel": "Cancel",
     "select_option": "Select an option",
-    "delete": "Delete"
+    "delete": "Delete",
+    "edit": "Edit"
   },
   "APPS": {
     "YOUR_CHEF": {

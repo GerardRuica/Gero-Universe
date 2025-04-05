@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Ingredient } from '../../types/yourChefBasicTypes';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MenuButtonComponent } from '../../../../shared/basic/buttons/menu-button/menu-button.component';
@@ -14,10 +14,14 @@ import { IngredientMenuButtonComponent } from '../ingredient-menu-button/ingredi
   styleUrl: './ingredient-card.component.scss',
 })
 export class IngredientCardComponent implements OnInit {
+  /** Path of the translations of ingredients */
   private readonly INGREDIENT_I18_PATH = 'APPS.YOUR_CHEF.INGREDIENTS.';
 
   /** Ingredient to show in card */
   @Input() ingredient: Ingredient = {};
+
+  /** Event to indicate whether the ingredient has been deleted or not */
+  @Output() public onUpdateIngredients = new EventEmitter<boolean>();
 
   /** Background color of the card */
   public backgroundColor: string = '';
@@ -76,5 +80,14 @@ export class IngredientCardComponent implements OnInit {
     this.ingredientName =
       this.INGREDIENT_I18_PATH +
       (this.ingredient?.identifier ?? 'default_ingredient_id');
+  }
+
+  /**
+   * Function that emits update ingredients
+   *
+   * @param createdIngredient
+   */
+  public updateIngredients(deletedIngredient: boolean): void {
+    if (deletedIngredient) this.onUpdateIngredients.emit(true);
   }
 }

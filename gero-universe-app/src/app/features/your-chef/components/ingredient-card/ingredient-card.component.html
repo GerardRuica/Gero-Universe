@@ -10,7 +10,10 @@
       </svg>
     </div>
     <div class="menu">
-      <ingredient-menu-button></ingredient-menu-button>
+      <ingredient-menu-button
+        [ingredientId]="ingredient._id"
+        (deletedIngredient)="updateIngredients($event)"
+      ></ingredient-menu-button>
     </div>
   </div>
   <div class="ingredient-name">

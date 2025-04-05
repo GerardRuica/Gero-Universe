@@ -21,7 +21,6 @@ import { MenuButtonComponent } from '../../../../shared/basic/buttons/menu-butto
     BasicButtonComponent,
     CreateIngredientModalComponent,
     BasicDialogComponent,
-    MenuButtonComponent,
   ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',

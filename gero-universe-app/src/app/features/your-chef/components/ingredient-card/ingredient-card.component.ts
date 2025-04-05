@@ -2,13 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Ingredient } from '../../types/yourChefBasicTypes';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MenuButtonComponent } from '../../../../shared/basic/buttons/menu-button/menu-button.component';
+import { IngredientMenuButtonComponent } from '../ingredient-menu-button/ingredient-menu-button.component';
 
 /**
  * Component to make an ingredient card
  */
 @Component({
   selector: 'ingredient-card',
-  imports: [TranslateModule, MenuButtonComponent],
+  imports: [TranslateModule, IngredientMenuButtonComponent],
   templateUrl: './ingredient-card.component.html',
   styleUrl: './ingredient-card.component.scss',
 })

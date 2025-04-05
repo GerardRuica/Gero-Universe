@@ -1,12 +1,14 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { MenuService } from '../../../../services/menu.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'menu-button',
   templateUrl: './menu-button.component.html',
   styleUrls: ['./menu-button.component.scss'],
+  imports: [CommonModule],
 })
 export class MenuButtonComponent implements OnDestroy {
   public isMenuOpen: boolean = false;
@@ -23,13 +25,6 @@ export class MenuButtonComponent implements OnDestroy {
     });
   }
 
-  public toggleMenu(): void {
-    if (!this.isMenuOpen) {
-      this.menuService.closeAllMenus(); // Cierra otros menús antes de abrir este
-    }
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-
   @HostListener('document:click', ['$event'])
   public onClickOutside(event: Event): void {
     const target = event.target as HTMLElement;
@@ -38,15 +33,14 @@ export class MenuButtonComponent implements OnDestroy {
     }
   }
 
-  public onEdit(): void {
-    this.isMenuOpen = false;
-  }
-
-  public onDelete(): void {
-    this.isMenuOpen = false;
-  }
-
   public ngOnDestroy(): void {
     this.closeSub.unsubscribe();
+  }
+
+  public toggleMenu(event: Event): void {
+    if (!this.isMenuOpen) {
+      this.menuService.closeAllMenus();
+    }
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }

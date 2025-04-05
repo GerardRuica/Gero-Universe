@@ -40,14 +40,7 @@ export class IngredientCardComponent implements OnInit {
    */
   public ngOnInit(): void {
     this.setBackgroundColor();
-    const ingredientKey = this.INGREDIENT_I18_PATH + this.ingredient.identifier;
-    this.translateService.get(ingredientKey).subscribe((translatedValue) => {
-      if (translatedValue !== ingredientKey) {
-        this.ingredientName = translatedValue;
-      } else {
-        this.ingredientName = this.ingredient.name || '';
-      }
-    });
+    this.getIngredientName();
   }
 
   /**
@@ -77,17 +70,23 @@ export class IngredientCardComponent implements OnInit {
    * Get ingredient name
    */
   private getIngredientName() {
-    this.ingredientName =
-      this.INGREDIENT_I18_PATH +
-      (this.ingredient?.identifier ?? 'default_ingredient_id');
+    const ingredientKey: string =
+      this.INGREDIENT_I18_PATH + this.ingredient.identifier;
+    this.translateService.get(ingredientKey).subscribe((translatedValue) => {
+      if (translatedValue !== ingredientKey) {
+        this.ingredientName = translatedValue;
+      } else {
+        this.ingredientName = this.ingredient.name || '';
+      }
+    });
   }
 
   /**
    * Function that emits update ingredients
    *
-   * @param createdIngredient
+   * @param updateIngredients
    */
-  public updateIngredients(deletedIngredient: boolean): void {
-    if (deletedIngredient) this.onUpdateIngredients.emit(true);
+  public updateIngredients(updateIngredients: boolean): void {
+    if (updateIngredients) this.onUpdateIngredients.emit(true);
   }
 }

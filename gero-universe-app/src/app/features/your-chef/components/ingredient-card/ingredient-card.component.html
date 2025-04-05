@@ -4,7 +4,7 @@
       <svg>
         <use
           [attr.xlink:href]="
-            'assets/icons/ingredients-icons.svg#' + ingredient.icon
+            'assets/icons/ingredients-icons.svg#' + ingredient.type
           "
         ></use>
       </svg>
@@ -12,7 +12,7 @@
     <div class="menu">
       <ingredient-menu-button
         [ingredientId]="ingredient._id"
-        (deletedIngredient)="updateIngredients($event)"
+        (updateIngredients)="updateIngredients($event)"
       ></ingredient-menu-button>
     </div>
   </div>

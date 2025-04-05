@@ -25,7 +25,7 @@ export class IngredientMenuButtonComponent {
   /** Ingredient id of the current ingredient */
   @Input() public ingredientId?: string = '';
   /** Event to indicate whether the ingredient has been deleted or not */
-  @Output() public deletedIngredient = new EventEmitter<boolean>();
+  @Output() public updateIngredients = new EventEmitter<boolean>();
 
   /** Indicates if delete dialog is opened or not */
   public deleteDialogOpened: boolean = false;
@@ -58,7 +58,7 @@ export class IngredientMenuButtonComponent {
     try {
       await this.ingredientService.deleteIngredientById(this.ingredientId);
       this.deleteDialogOpened = false;
-      this.deletedIngredient.emit(true);
+      this.updateIngredients.emit(true);
     } catch (error: any) {
       throw error;
     }

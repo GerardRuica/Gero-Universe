@@ -17,6 +17,7 @@
         "search_ingredient": "Buscar un ingrediente",
         "add_ingredient": "Añadir ingrediente",
         "create_ingredient": "Crear ingrediente",
+        "edit_ingredient": "Editar ingrediente",
         "ingredient_name": "Nombre del ingrediente",
         "introduce_ingredient_name": "Introduce el nombre del ingrediente",
         "ingredient_desc": "Descripción del ingrediente",

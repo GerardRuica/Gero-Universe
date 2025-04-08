@@ -47,6 +47,29 @@ class IngredientController {
   }
 
   /**
+   * Function to update an ingredient by id
+   *
+   * @param {Request} req Express request with id of the ingredient to update and data to update
+   * @param {Response} res Express response
+   */
+  public async updateIngredientByID(req: Request, res: Response) {
+    try {
+      const ingredientId: string = req.params.id;
+      const updatedData: Partial<IIngredient> = req.body;
+      const updatedIngredient = await Ingredient.findByIdAndUpdate(ingredientId, { $set: updatedData }, { new: true, runValidators: true });
+
+      if (!updatedIngredient) {
+        res.status(404).send({ message: "Ingredient not found" });
+        return;
+      }
+
+      res.status(200).send(updatedIngredient);
+    } catch (error) {
+      res.status(500).json({ message: "Error when update an ingredient" });
+    }
+  }
+
+  /**
    * Function to delete an ingredient by id
    *
    * @param req Express request with ingredient id

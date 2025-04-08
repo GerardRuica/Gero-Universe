@@ -1,13 +1,18 @@
 <menu-button>
   <menu-sub-button
     [text]="'BASIC.edit' | translate"
-    (click)="openEdit()"
+    (click)="toggleEditModal($event)"
   ></menu-sub-button>
   <menu-sub-button
     [text]="'BASIC.delete' | translate"
     (click)="toggleDeleteDialog($event)"
   ></menu-sub-button>
 </menu-button>
+<ingredient-modal
+  [openedCreateModal]="editModalOpened"
+  [ingredient]="ingredient"
+  (updatedIngredient)="toggleEditModal($event)"
+></ingredient-modal>
 <basic-dialog
   [opened]="deleteDialogOpened"
   [type]="'delete'"

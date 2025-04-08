@@ -9,9 +9,10 @@ const ingredientsRoutes: Router = express.Router();
 
 // Endpoint to get all ingredients from DB
 ingredientsRoutes.get("/getIngredients", (req, res) => ingredientController.getAllIngredients(req, res));
-// Endpoint ot create an ingredient
+// Endpoint to create an ingredient
 ingredientsRoutes.post("/addIngredient", (req, res) => ingredientController.createIngredient(req, res));
-ingredientsRoutes.put("/:id", async (req: Request, res: Response) => {});
+// Endpoint to update ingredient by id
+ingredientsRoutes.put("/:id", (req, res) => ingredientController.createIngredient(req, res));
 /** Endpoint to delete an ingredient by id */
 ingredientsRoutes.delete("/:id", (req: Request, res: Response) => ingredientController.deleteIngredientById(req, res));
 

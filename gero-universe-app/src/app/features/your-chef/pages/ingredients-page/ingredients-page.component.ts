@@ -5,9 +5,8 @@ import { IngredientCardComponent } from '../../components/ingredient-card/ingred
 import { Ingredient } from '../../types/yourChefBasicTypes';
 import { IngredientService } from '../../services/ingredient.service';
 import { BasicButtonComponent } from '../../../../shared/basic/buttons/basic-button/basic-button.component';
-import { CreateIngredientModalComponent } from '../../components/create-ingredient-modal/create-ingredient-modal.component';
+import { CreateIngredientModalComponent } from '../../components/ingredient-modal/ingredient-modal.component';
 import { BasicDialogComponent } from '../../../../shared/ui/basic-dialog/basic-dialog.component';
-import { MenuButtonComponent } from '../../../../shared/basic/buttons/menu-button/menu-button.component';
 
 /**
  * Ingredients page where all ingredients are showed

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Ingredient } from '../../types/yourChefBasicTypes';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MenuButtonComponent } from '../../../../shared/basic/buttons/menu-button/menu-button.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { IngredientMenuButtonComponent } from '../ingredient-menu-button/ingredient-menu-button.component';
+import { IngredientService } from '../../services/ingredient.service';
 
 /**
  * Component to make an ingredient card
@@ -14,9 +14,6 @@ import { IngredientMenuButtonComponent } from '../ingredient-menu-button/ingredi
   styleUrl: './ingredient-card.component.scss',
 })
 export class IngredientCardComponent implements OnInit {
-  /** Path of the translations of ingredients */
-  private readonly INGREDIENT_I18_PATH = 'APPS.YOUR_CHEF.INGREDIENTS.';
-
   /** Ingredient to show in card */
   @Input() ingredient: Ingredient = {};
 
@@ -27,20 +24,27 @@ export class IngredientCardComponent implements OnInit {
   public backgroundColor: string = '';
   /** Ingredient name */
   public ingredientName: string = '';
+  public isLoading: boolean = true;
 
   /**
    * Initializes all dependencies
    *
-   * @param {TranslateService} translateService Service to translate
+   * @param {IngredientService} ingredientService Service manage ingredients
    */
-  constructor(private translateService: TranslateService) {}
+  constructor(private ingredientService: IngredientService) {}
 
   /**
    * Initialize component
    */
-  public ngOnInit(): void {
-    this.setBackgroundColor();
-    this.getIngredientName();
+  public async ngOnInit(): Promise<void> {
+    try {
+      this.setBackgroundColor();
+      this.ingredientName = await this.ingredientService.getIngredientName(
+        this.ingredient.identifier || ''
+      );
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
@@ -64,21 +68,6 @@ export class IngredientCardComponent implements OnInit {
 
     this.backgroundColor =
       colors[this.ingredient.type?.toLocaleLowerCase() ?? 'default'] || 'gray';
-  }
-
-  /**
-   * Get ingredient name
-   */
-  private getIngredientName() {
-    const ingredientKey: string =
-      this.INGREDIENT_I18_PATH + this.ingredient.identifier;
-    this.translateService.get(ingredientKey).subscribe((translatedValue) => {
-      if (translatedValue !== ingredientKey) {
-        this.ingredientName = translatedValue;
-      } else {
-        this.ingredientName = this.ingredient.name || '';
-      }
-    });
   }
 
   /**

@@ -28,7 +28,7 @@
   ></ingredient-card>
   }
 </div>
-<create-ingredient-modal
+<ingredient-modal
   [openedCreateModal]="openedCreateModal"
-  (createdIngredient)="updateIngredients($event)"
-></create-ingredient-modal>
+  (updatedIngredient)="updateIngredients($event)"
+></ingredient-modal>

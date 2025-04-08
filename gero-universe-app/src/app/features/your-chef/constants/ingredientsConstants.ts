@@ -1,6 +1,9 @@
 import { SelectOption } from '../../../types/componentsTypes';
 
-/** COnstant with all ingredients types */
+/** Path of the translations of ingredients */
+export const INGREDIENT_I18_PATH: string = 'APPS.YOUR_CHEF.INGREDIENTS.';
+
+/** Constant with all ingredients types */
 export const INGREDIENT_TYPES: SelectOption[] = [
   {
     value: 'meat',

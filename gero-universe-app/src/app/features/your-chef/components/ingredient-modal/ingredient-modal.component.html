@@ -1,13 +1,19 @@
 <modal
   [open]="openedCreateModal"
   [width]="'325px'"
-  [title]="'APPS.YOUR_CHEF.INGREDIENT.create_ingredient' | translate"
-  [submitButtonText]="'BASIC.create' | translate"
+  [title]="
+    ingredient
+      ? ('APPS.YOUR_CHEF.INGREDIENT.edit_ingredient' | translate)
+      : ('APPS.YOUR_CHEF.INGREDIENT.create_ingredient' | translate)
+  "
+  [submitButtonText]="
+    ingredient ? ('BASIC.edit' | translate) : ('BASIC.create' | translate)
+  "
   [closeButtonText]="'BASIC.cancel' | translate"
-  (submitEvent)="createIngredient()"
-  (closeEvent)="closeCreateIngredient()"
+  (submitEvent)="ingredient ? updateIngredient() : createIngredient()"
+  (closeEvent)="closeIngredientModal(false)"
 >
-  <form [formGroup]="createIngredientForm">
+  <form [formGroup]="ingredientForm">
     <div class="field">
       <form-input
         [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_name' | translate"
@@ -15,7 +21,7 @@
           'APPS.YOUR_CHEF.INGREDIENT.introduce_ingredient_name' | translate
         "
         [type]="'text'"
-        [required]="true"
+        [required]="ingredient ? false : true"
         formControlName="ingredientName"
       ></form-input>
       <input-error
@@ -34,12 +40,12 @@
       ></form-input>
     </div>
     <div class="field">
-      <basic-select
+      <form-select
         [labelText]="'APPS.YOUR_CHEF.INGREDIENT.ingredient_type' | translate"
         [options]="ingredientTypes"
         [required]="true"
         formControlName="ingredientType"
-      ></basic-select>
+      ></form-select>
     </div>
   </form>
 </modal>

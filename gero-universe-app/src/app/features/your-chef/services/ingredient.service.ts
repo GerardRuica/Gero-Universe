@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Ingredient } from '../types/yourChefBasicTypes';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { INGREDIENT_I18_PATH } from '../constants/ingredientsConstants';
+import { TranslateService } from '@ngx-translate/core';
+import { error } from 'console';
 
 /**
  * Injectable to get and set data of ingredients
@@ -15,7 +18,10 @@ export class IngredientService {
    * Constructor that initializes services
    * @param {HttpClient} http Http client to do http petitions
    */
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private translateService: TranslateService
+  ) {}
 
   /**
    * Get all ingredients from DB
@@ -59,11 +65,36 @@ export class IngredientService {
   }
 
   /**
+   * Update ingredient by id
+   *
+   * @param {string} ingredientId Ingredient id
+   * @param {Partial<Ingredient>} ingredientData Ingredient data to update
+   */
+  public async updateIngredientById(
+    ingredientId: string,
+    ingredientData: Partial<Ingredient>
+  ) {
+    try {
+      await firstValueFrom(
+        this.http.put(
+          `${environment.API_URL}/your-chef/ingredients/${ingredientId}`,
+          ingredientData,
+          {
+            withCredentials: true,
+          }
+        )
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
    * Delete an ingredient by id
    *
    * @param {string} ingredientId Ingredient id
    */
-  public async deleteIngredientById(ingredientId?: string) {
+  public async deleteIngredientById(ingredientId: string) {
     try {
       await firstValueFrom(
         this.http.delete(
@@ -73,6 +104,34 @@ export class IngredientService {
           }
         )
       );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Function to get translated ingredient name with their ingredient identifier
+   *
+   * @param ingredientIdentifier
+   * @returns
+   */
+  public async getIngredientName(
+    ingredientIdentifier: string
+  ): Promise<string> {
+    try {
+      const ingredientKey: string = INGREDIENT_I18_PATH + ingredientIdentifier;
+      const translatedValue = await lastValueFrom(
+        this.translateService.get(ingredientKey)
+      );
+
+      let ingredientName: string = '';
+      if (translatedValue !== ingredientKey) {
+        ingredientName = translatedValue;
+      } else {
+        ingredientName = ingredientIdentifier || '';
+      }
+
+      return ingredientName;
     } catch (error) {
       throw error;
     }

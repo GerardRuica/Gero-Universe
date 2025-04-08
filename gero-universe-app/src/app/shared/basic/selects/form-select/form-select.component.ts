@@ -18,7 +18,7 @@ const CUSTOM_CONTROL_VALUE_ACCESSOR: Provider = {
 };
 
 @Component({
-  selector: 'basic-select',
+  selector: 'form-select',
   imports: [TranslateModule],
   templateUrl: './form-select.component.html',
   styleUrl: './form-select.component.scss',
@@ -36,6 +36,9 @@ export class FormSelectComponent implements ControlValueAccessor {
 
   /** Value changes */
   @Output() public valueChange = new EventEmitter<string>();
+
+  /** Boolean indicating if select is disabled or not */
+  public disabled: boolean = false;
 
   private onChange = (value: any) => {};
   private onTouched = () => {};
@@ -64,5 +67,7 @@ export class FormSelectComponent implements ControlValueAccessor {
   }
 
   /** This method allows Angular to disable the <select> when the form requires it */
-  public setDisabledState?(isDisabled: boolean): void {}
+  public setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
 }

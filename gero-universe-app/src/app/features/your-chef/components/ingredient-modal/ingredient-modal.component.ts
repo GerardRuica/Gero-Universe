@@ -16,7 +16,7 @@ import { FormSelectComponent } from '../../../../shared/basic/selects/form-selec
 import { InputErrorComponent } from '../../../../shared/inputs/input-error/input-error.component';
 
 @Component({
-  selector: 'create-ingredient-modal',
+  selector: 'ingredient-modal',
   imports: [
     TranslateModule,
     ModalComponent,
@@ -24,23 +24,23 @@ import { InputErrorComponent } from '../../../../shared/inputs/input-error/input
     ReactiveFormsModule,
     InputErrorComponent,
     FormSelectComponent,
-    TranslateModule,
   ],
-  templateUrl: './create-ingredient-modal.component.html',
-  styleUrl: './create-ingredient-modal.component.scss',
+  templateUrl: './ingredient-modal.component.html',
+  styleUrl: './ingredient-modal.component.scss',
 })
 export class CreateIngredientModalComponent implements OnInit {
   /** Boolean indicating if create ingredient modal is opened or closed */
   @Input() public openedCreateModal: boolean = false;
-
+  /** Ingredient info of the current ingredient */
+  @Input() public ingredient?: Ingredient;
   /** Value changes */
-  @Output() public createdIngredient = new EventEmitter<boolean>();
+  @Output() public updatedIngredient = new EventEmitter<boolean>();
 
   /** Form of create ingredient modal */
-  public createIngredientForm!: FormGroup;
+  public ingredientForm!: FormGroup;
   /** Options of the select of the modal */
   public ingredientTypes: SelectOption[] = INGREDIENT_TYPES;
-
+  /** Indicates error name of an error */
   public ingredientNameError: string = '';
 
   /**
@@ -61,7 +61,8 @@ export class CreateIngredientModalComponent implements OnInit {
    */
   public async ngOnInit(): Promise<void> {
     try {
-      this.initializeForm();
+      this.initializeCreateForm();
+      if (this.ingredient) await this.initializeUpdateForm();
     } catch (error) {
       throw error;
     }
@@ -70,11 +71,15 @@ export class CreateIngredientModalComponent implements OnInit {
   /**
    * Close create ingredient modal
    */
-  public closeCreateIngredient() {
+  public closeIngredientModal(createdOrUpdated: boolean) {
     this.openedCreateModal = false;
     this.ingredientNameError = '';
-    this.initializeForm();
-    this.createdIngredient.emit(false);
+
+    if (this.ingredient) this.initializeUpdateForm;
+    else this.initializeCreateForm();
+
+    if (createdOrUpdated) this.updatedIngredient.emit(true);
+    else this.updatedIngredient.emit(false);
   }
 
   /**
@@ -82,18 +87,16 @@ export class CreateIngredientModalComponent implements OnInit {
    */
   public async createIngredient(): Promise<void> {
     try {
-      if (this.createIngredientForm.valid) {
+      if (this.ingredientForm.valid) {
         const ingredient: Ingredient = {
-          name: this.createIngredientForm.get('ingredientName')?.value,
-          description: this.createIngredientForm.get('ingredientDesc')?.value,
-          type: this.createIngredientForm.get('ingredientType')?.value,
+          name: this.ingredientForm.get('ingredientName')?.value,
+          description: this.ingredientForm.get('ingredientDesc')?.value,
+          type: this.ingredientForm.get('ingredientType')?.value,
         };
 
         await this.ingredientService.createIngredient(ingredient);
-        this.createdIngredient.emit(true);
 
-        this.closeCreateIngredient();
-      } else {
+        this.closeIngredientModal(true);
       }
     } catch (error: any) {
       if (error.error.code === 'DUPLICATE_KEY') {
@@ -105,11 +108,60 @@ export class CreateIngredientModalComponent implements OnInit {
     }
   }
 
-  private initializeForm(): void {
-    this.createIngredientForm = this.formBuilder.group({
+  /**
+   * Update an existing ingredient
+   */
+  public async updateIngredient(): Promise<void> {
+    try {
+      if (this.ingredientForm.valid) {
+        const ingredientData: Partial<Ingredient> = {
+          name: this.ingredientForm.get('ingredientName')?.value,
+          description: this.ingredientForm.get('ingredientDesc')?.value,
+          type: this.ingredientForm.get('ingredientType')?.value,
+        };
+
+        await this.ingredientService.updateIngredientById(
+          this.ingredient?._id || '',
+          ingredientData
+        );
+
+        this.closeIngredientModal(true);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Initializes create ingredient form
+   */
+  private initializeCreateForm(): void {
+    this.ingredientForm = this.formBuilder.group({
       ingredientName: ['', [Validators.required]],
       ingredientDesc: [''],
       ingredientType: ['', Validators.required],
     });
+  }
+
+  /**
+   * Initializes update ingredient form
+   */
+  private async initializeUpdateForm(): Promise<void> {
+    try {
+      const ingredientName: string =
+        await this.ingredientService.getIngredientName(
+          this.ingredient?.identifier || ''
+        );
+
+      this.ingredientForm = this.formBuilder.group({
+        ingredientName: [ingredientName],
+        ingredientDesc: [this.ingredient?.description],
+        ingredientType: [this.ingredient?.type, Validators.required],
+      });
+
+      this.ingredientForm.get('ingredientName')?.disable();
+    } catch (error) {
+      throw error;
+    }
   }
 }

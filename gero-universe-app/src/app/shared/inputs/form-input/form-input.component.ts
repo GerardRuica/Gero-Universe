@@ -36,6 +36,8 @@ export class FormInputComponent implements ControlValueAccessor {
   /** Indicates if input is required or not */
   @Input() public required: boolean = false;
 
+  /** Boolean indicating if input is disabled or not */
+  public disabled: boolean = false;
   /** Internal value bound to the input field. */
   public value: string = '';
   /** Boolean to know if input has touched or not */
@@ -81,5 +83,7 @@ export class FormInputComponent implements ControlValueAccessor {
    * Sets the disabled state of the input field
    * @param {boolean} isDisabled Whether the input should be disabled
    */
-  public setDisabledState?(isDisabled: boolean): void {}
+  public setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
 }

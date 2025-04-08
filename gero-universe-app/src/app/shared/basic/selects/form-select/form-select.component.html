@@ -6,9 +6,10 @@
     }
   </label>
   <select
-    formControl="control"
-    [value]="selectedValue"
+    formControl="formControlName"
     (change)="onValueChange($event)"
+    [disabled]="disabled"
+    [value]="selectedValue"
   >
     @for (option of options; track option.value) {
     <option value="" disabled selected hidden>

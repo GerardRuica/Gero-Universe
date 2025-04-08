@@ -12,7 +12,7 @@ ingredientsRoutes.get("/getIngredients", (req, res) => ingredientController.getA
 // Endpoint to create an ingredient
 ingredientsRoutes.post("/addIngredient", (req, res) => ingredientController.createIngredient(req, res));
 // Endpoint to update ingredient by id
-ingredientsRoutes.put("/:id", (req, res) => ingredientController.createIngredient(req, res));
+ingredientsRoutes.put("/:id", (req, res) => ingredientController.updateIngredientById(req, res));
 /** Endpoint to delete an ingredient by id */
 ingredientsRoutes.delete("/:id", (req: Request, res: Response) => ingredientController.deleteIngredientById(req, res));
 

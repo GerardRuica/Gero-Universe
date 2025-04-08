@@ -52,7 +52,7 @@ class IngredientController {
    * @param {Request} req Express request with id of the ingredient to update and data to update
    * @param {Response} res Express response
    */
-  public async updateIngredientByID(req: Request, res: Response) {
+  public async updateIngredientById(req: Request, res: Response) {
     try {
       const ingredientId: string = req.params.id;
       const updatedData: Partial<IIngredient> = req.body;

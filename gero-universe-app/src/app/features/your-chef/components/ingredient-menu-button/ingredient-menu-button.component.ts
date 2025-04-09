@@ -2,12 +2,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MenuButtonComponent } from '../../../../shared/basic/buttons/menu-button/menu-button.component';
 import { MenuSubButtonComponent } from '../../../../shared/basic/buttons/menu-sub-button/menu-sub-button.component';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BasicDialogComponent } from '../../../../shared/ui/basic-dialog/basic-dialog.component';
 import { IngredientService } from '../../services/ingredient.service';
 import { CreateIngredientModalComponent } from '../ingredient-modal/ingredient-modal.component';
 import { Ingredient } from '../../types/yourChefBasicTypes';
-import { DialogService } from '../../../../services/dialog-service/dialog-service.service';
+import {
+  BasicDialogData,
+  DialogService,
+} from '../../../../services/dialog-service/dialog-service.service';
 
 /**
  * Component tha implements menu button of the ingredients
@@ -44,17 +47,30 @@ export class IngredientMenuButtonComponent {
    */
   constructor(
     private ingredientService: IngredientService,
-    dialogService: DialogService
+    private dialogService: DialogService,
+    private translateService: TranslateService
   ) {}
 
   /**
    * Open and close delete ingredient dialog
    */
-  public toggleDeleteDialog(event: string | Event): void {
-    if (event == 'close') {
-      this.deleteDialogOpened = false;
-    } else {
-      this.deleteDialogOpened = !this.deleteDialogOpened;
+  public async openDeleteDialog(event: string | Event): Promise<void> {
+    try {
+      const dialogResult: string = await this.dialogService.openDialog({
+        title: this.translateService.instant(
+          'APPS.YOUR_CHEF.INGREDIENT.delete_ingredient'
+        ),
+        description: this.translateService.instant(
+          'APPS.YOUR_CHEF.INGREDIENT.delete_ingredient_desc'
+        ),
+        type: 'delete',
+      });
+
+      if (dialogResult === 'submit') {
+        await this.deleteIngredient();
+      }
+    } catch (error) {
+      throw error;
     }
   }
 

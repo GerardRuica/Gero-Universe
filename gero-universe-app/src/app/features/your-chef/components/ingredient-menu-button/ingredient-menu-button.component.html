@@ -5,7 +5,7 @@
   ></menu-sub-button>
   <menu-sub-button
     [text]="'BASIC.delete' | translate"
-    (click)="toggleDeleteDialog($event)"
+    (click)="openDeleteDialog($event)"
   ></menu-sub-button>
 </menu-button>
 <ingredient-modal
@@ -13,11 +13,3 @@
   [ingredient]="ingredient"
   (updatedIngredient)="updateIngredient($event)"
 ></ingredient-modal>
-<basic-dialog
-  [opened]="deleteDialogOpened"
-  [type]="'delete'"
-  [title]="'APPS.YOUR_CHEF.INGREDIENT.delete_ingredient' | translate"
-  [description]="'APPS.YOUR_CHEF.INGREDIENT.delete_ingredient_desc' | translate"
-  (submitEvent)="deleteIngredient()"
-  (closeEvent)="toggleDeleteDialog($event)"
-></basic-dialog>

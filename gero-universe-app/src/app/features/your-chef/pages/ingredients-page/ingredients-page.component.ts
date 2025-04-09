@@ -47,19 +47,6 @@ export class IngredientsPageComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     try {
       this.ingredients = await this.ingredientService.getAllIngredients();
-      this.dialogService
-        .openDialog({
-          title: 'Eliminar elemento',
-          description: '¿Estás seguro de que quieres eliminar este elemento?',
-          type: 'delete',
-        })
-        .then((result) => {
-          if (result === 'submit') {
-            // Lógica de confirmación
-          } else {
-            // Lógica de cancelación
-          }
-        });
     } catch (error) {
       throw error;
     }

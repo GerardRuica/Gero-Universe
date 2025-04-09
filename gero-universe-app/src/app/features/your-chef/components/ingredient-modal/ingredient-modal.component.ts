@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { ModalComponent } from '../../../../shared/ui/modal/modal.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
@@ -28,7 +36,7 @@ import { InputErrorComponent } from '../../../../shared/inputs/input-error/input
   templateUrl: './ingredient-modal.component.html',
   styleUrl: './ingredient-modal.component.scss',
 })
-export class CreateIngredientModalComponent implements OnInit {
+export class CreateIngredientModalComponent implements OnInit, OnChanges {
   /** Boolean indicating if create ingredient modal is opened or closed */
   @Input() public openedCreateModal: boolean = false;
   /** Ingredient info of the current ingredient */
@@ -65,6 +73,17 @@ export class CreateIngredientModalComponent implements OnInit {
       if (this.ingredient) await this.initializeUpdateForm();
     } catch (error) {
       throw error;
+    }
+  }
+
+  /**
+   * Update update form when ingredient has a change
+   *
+   * @param {SimpleChanges} changes Change when ingredient change
+   */
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ingredient']) {
+      this.initializeUpdateForm();
     }
   }
 

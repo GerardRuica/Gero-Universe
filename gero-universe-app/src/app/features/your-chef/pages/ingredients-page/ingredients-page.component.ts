@@ -56,9 +56,9 @@ export class IngredientsPageComponent implements OnInit {
   }
 
   /** Update ingredients */
-  public async updateIngredients(createdIngredient: boolean): Promise<void> {
+  public async updateIngredients(updatedIngredient: boolean): Promise<void> {
     try {
-      if (createdIngredient)
+      if (updatedIngredient)
         this.ingredients = await this.ingredientService.getAllIngredients();
 
       this.openedCreateModal = false;

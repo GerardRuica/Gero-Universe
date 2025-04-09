@@ -11,7 +11,7 @@
 <ingredient-modal
   [openedCreateModal]="editModalOpened"
   [ingredient]="ingredient"
-  (updatedIngredient)="toggleEditModal($event)"
+  (updatedIngredient)="updateIngredient($event)"
 ></ingredient-modal>
 <basic-dialog
   [opened]="deleteDialogOpened"

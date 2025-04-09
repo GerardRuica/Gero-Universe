@@ -75,11 +75,10 @@ export class CreateIngredientModalComponent implements OnInit {
     this.openedCreateModal = false;
     this.ingredientNameError = '';
 
-    if (this.ingredient) this.initializeUpdateForm;
+    if (this.ingredient) this.initializeUpdateForm();
     else this.initializeCreateForm();
 
-    if (createdOrUpdated) this.updatedIngredient.emit(true);
-    else this.updatedIngredient.emit(false);
+    this.updatedIngredient.emit(createdOrUpdated);
   }
 
   /**
@@ -87,7 +86,6 @@ export class CreateIngredientModalComponent implements OnInit {
    */
   public async createIngredient(): Promise<void> {
     try {
-      console.log('CREATE');
       if (this.ingredientForm.valid) {
         const ingredient: Ingredient = {
           name: this.ingredientForm.get('ingredientName')?.value,
@@ -114,7 +112,6 @@ export class CreateIngredientModalComponent implements OnInit {
    */
   public async updateIngredient(): Promise<void> {
     try {
-      console.log('UPDATE');
       if (this.ingredientForm.valid) {
         const ingredientData: Partial<Ingredient> = {
           name: this.ingredientForm.get('ingredientName')?.value,
@@ -126,7 +123,6 @@ export class CreateIngredientModalComponent implements OnInit {
           this.ingredient?._id || '',
           ingredientData
         );
-
         this.closeIngredientModal(true);
       }
     } catch (error) {

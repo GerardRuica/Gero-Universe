@@ -76,4 +76,14 @@ export class IngredientMenuButtonComponent {
       throw error;
     }
   }
+
+  /**
+   * Emits an event indicating that ingredient has been updated
+   *
+   * @param {boolean} event Boolean event indicating ingredient updating
+   */
+  public updateIngredient(event: boolean): void {
+    this.updateIngredients.emit(true);
+    this.editModalOpened = !this.editModalOpened;
+  }
 }

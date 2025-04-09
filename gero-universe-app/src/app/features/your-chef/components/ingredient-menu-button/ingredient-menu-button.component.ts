@@ -54,7 +54,7 @@ export class IngredientMenuButtonComponent {
   /**
    * Open and close delete ingredient dialog
    */
-  public async openDeleteDialog(event: string | Event): Promise<void> {
+  public async openDeleteDialog(): Promise<void> {
     try {
       const dialogResult: string = await this.dialogService.openDialog({
         title: this.translateService.instant(

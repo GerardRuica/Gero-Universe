@@ -21,7 +21,7 @@
   </div>
 </div>
 <div class="card-container">
-  @for (ingredient of ingredients; track ingredient) {
+  @for (ingredient of ingredients; track ingredient._id) {
   <ingredient-card
     [ingredient]="ingredient"
     (onUpdateIngredients)="updateIngredients($event)"

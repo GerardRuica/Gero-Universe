@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Ingredient } from '../../types/yourChefBasicTypes';
 import { TranslateModule } from '@ngx-translate/core';
 import { IngredientMenuButtonComponent } from '../ingredient-menu-button/ingredient-menu-button.component';
@@ -13,7 +21,7 @@ import { IngredientService } from '../../services/ingredient.service';
   templateUrl: './ingredient-card.component.html',
   styleUrl: './ingredient-card.component.scss',
 })
-export class IngredientCardComponent implements OnInit {
+export class IngredientCardComponent implements OnInit, OnChanges {
   /** Ingredient to show in card */
   @Input() ingredient: Ingredient = {};
 
@@ -44,6 +52,17 @@ export class IngredientCardComponent implements OnInit {
       );
     } catch (error) {
       throw error;
+    }
+  }
+
+  /**
+   * Detect changes and update ingredient card color
+   *
+   * @param {SimpleChanges} changes Changes on card
+   */
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ingredient']) {
+      this.setBackgroundColor();
     }
   }
 

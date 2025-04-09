@@ -7,6 +7,7 @@ import { BasicDialogComponent } from '../../../../shared/ui/basic-dialog/basic-d
 import { IngredientService } from '../../services/ingredient.service';
 import { CreateIngredientModalComponent } from '../ingredient-modal/ingredient-modal.component';
 import { Ingredient } from '../../types/yourChefBasicTypes';
+import { DialogService } from '../../../../services/dialog-service/dialog-service.service';
 
 /**
  * Component tha implements menu button of the ingredients
@@ -39,8 +40,12 @@ export class IngredientMenuButtonComponent {
    * Constructor that import all dependencies
    *
    * @param {IngredientService} ingredientService Service that allows delete and edit an ingredient
+   * @param {DialogService} dialogService Service to open a dialog
    */
-  constructor(private ingredientService: IngredientService) {}
+  constructor(
+    private ingredientService: IngredientService,
+    dialogService: DialogService
+  ) {}
 
   /**
    * Open and close delete ingredient dialog

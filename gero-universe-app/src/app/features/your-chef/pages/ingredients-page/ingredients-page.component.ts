@@ -7,6 +7,7 @@ import { IngredientService } from '../../services/ingredient.service';
 import { BasicButtonComponent } from '../../../../shared/basic/buttons/basic-button/basic-button.component';
 import { CreateIngredientModalComponent } from '../../components/ingredient-modal/ingredient-modal.component';
 import { BasicDialogComponent } from '../../../../shared/ui/basic-dialog/basic-dialog.component';
+import { DialogService } from '../../../../services/dialog-service/dialog-service.service';
 
 /**
  * Ingredients page where all ingredients are showed
@@ -35,7 +36,10 @@ export class IngredientsPageComponent implements OnInit {
    *
    * @param {IngredientService} ingredientService Service to get all ingredients
    */
-  constructor(private ingredientService: IngredientService) {}
+  constructor(
+    private ingredientService: IngredientService,
+    private dialogService: DialogService
+  ) {}
 
   /**
    * Initializes component
@@ -43,6 +47,19 @@ export class IngredientsPageComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     try {
       this.ingredients = await this.ingredientService.getAllIngredients();
+      this.dialogService
+        .openDialog({
+          title: 'Eliminar elemento',
+          description: '¿Estás seguro de que quieres eliminar este elemento?',
+          type: 'delete',
+        })
+        .then((result) => {
+          if (result === 'submit') {
+            // Lógica de confirmación
+          } else {
+            // Lógica de cancelación
+          }
+        });
     } catch (error) {
       throw error;
     }
